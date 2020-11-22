@@ -1,3 +1,6 @@
+from ModulareArythmetik.extenden_euclidean import getInverse
+
+
 class RestklasseEF():
 
     def __init__(self, base, currentValue):
@@ -59,12 +62,13 @@ class RestklasseEF():
     def __efficientMul(self, currentValue,valueToMul):
         return currentValue * self.__efficientMod(valueToMul)
           
+    def __efficientDivision(self, currentValue,valueToDiv):
+        invValueToDiv = getInverse(self.base, valueToDiv)
+        erg = invValueToDiv * currentValue
+        return self.__efficientMod(erg)
+
     def __efficientPow(self,  currentValue,valueToPow):
         return currentValue ** valueToPow  
-
-    def __efficientDivision(self, currentValue,valueToDiv):
-        
-        return currentValue / valueToDiv    
 
     def __efficientLt(self,  currentValue,valueToCompare):
         return currentValue < self.__efficientMod(valueToCompare)
@@ -85,5 +89,6 @@ class RestklasseEF():
         return currentValue >= self.__efficientMod(valueToCompare)  
 
 
-
-
+restklasse = RestklasseEF(5,13)
+restklasseerg = restklasse / 17
+print(restklasseerg.currentValue)

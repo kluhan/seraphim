@@ -26,8 +26,8 @@ class TestRestklasseEF():
 
 	def test_restklasse_truediv(self):
 		restklasse = RestklasseEF(5,13)
-		restklasseerg = restklasse / 15
-		assert restklasseerg
+		restklasseerg = restklasse / 17
+		assert restklasseerg.currentValue == 4
 
 	def test_restklasse_lt(self):
 		restklasse = RestklasseEF(5,13)

@@ -1,7 +1,7 @@
 def getInverse(base,valueToInverse):
-    return __extendedEuklid(base,valueToInverse)
+    return __extendedEuclid(base,valueToInverse)
 
-def __extendedEuklid(base,valueToInverse):
+def __extendedEuclid(base,valueToInverse):
     q = int(base / valueToInverse)
     if(q < 0):
         q = 0
@@ -13,7 +13,8 @@ def __extendedEuklid(base,valueToInverse):
     x0 = 0
     x1 = 1
     if r == 0:
-        return f"ERROR - UNDEFINED INVERSE (Base: {base}), Value: {valueToInverse})"
+        print(f"ERROR - UNDEFINED INVERSE (Base: {base}), Value: {valueToInverse})")
+        return 0
 
     while(r != 0):
         invers = (x0 - x1 * q ) % base
