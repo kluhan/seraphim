@@ -63,6 +63,7 @@ class RestklasseEF():
         return currentValue ** valueToPow  
 
     def __efficientDivision(self, currentValue,valueToDiv):
+        
         return currentValue / valueToDiv    
 
     def __efficientLt(self,  currentValue,valueToCompare):
