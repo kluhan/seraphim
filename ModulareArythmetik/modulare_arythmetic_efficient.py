@@ -1,6 +1,5 @@
 from ModulareArythmetik.extenden_euclidean import getInverse
 
-
 class RestklasseEF():
 
     def __init__(self, base, currentValue):
@@ -63,12 +62,16 @@ class RestklasseEF():
         return currentValue * self.__efficientMod(valueToMul)
           
     def __efficientDivision(self, currentValue,valueToDiv):
+        #todo efficient machen
         invValueToDiv = getInverse(self.base, valueToDiv)
         erg = invValueToDiv * currentValue
         return self.__efficientMod(erg)
 
     def __efficientPow(self,  currentValue,valueToPow):
-        return currentValue ** valueToPow  
+        powErgPot = self.__repeatedSquare(valueToPow)
+        a = currentValue**powErgPot
+        r = currentValue**(valueToPow - powErgPot)
+        return self.__efficientMod(a)  * self.__efficientMod(r) 
 
     def __efficientLt(self,  currentValue,valueToCompare):
         return currentValue < self.__efficientMod(valueToCompare)
@@ -88,6 +91,13 @@ class RestklasseEF():
     def __efficientGe(self,  currentValue,valueToCompare):
         return currentValue >= self.__efficientMod(valueToCompare)  
 
+
+    def __repeatedSquare(self,valueToPow):
+        erg = 2
+        while(erg < valueToPow):
+            erg = erg * 2
+
+        return erg
 
 restklasse = RestklasseEF(5,13)
 restklasseerg = restklasse / 17
