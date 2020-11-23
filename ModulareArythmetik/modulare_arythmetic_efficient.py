@@ -1,3 +1,4 @@
+from ModulareArythmetik.extenden_euclidean import getInverse
 
 class RestklasseEF():
 
@@ -27,7 +28,7 @@ class RestklasseEF():
         newErg =  self.__efficientMod(newValue)
         return RestklasseEF(self.base, newErg)
 
-re    def __lt__(self, valueToCompare):
+    def __lt__(self, valueToCompare):
         return self.__efficientLt(self.currentValue,valueToCompare)
 
     def __le__(self, valueToCompare):
@@ -42,12 +43,9 @@ re    def __lt__(self, valueToCompare):
     def __gt__(self, valueToCompare):
         return self.__efficientGt(self.currentValue,valueToCompare)
 
-
     def __ge__(self, valueToCompare):
         return self.__efficientGe(self.currentValue,valueToCompare)
 
-        
-    
     def __efficientMod(self, value):
         return value % self.base
 
