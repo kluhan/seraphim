@@ -1,61 +1,59 @@
-from ModulareArythmetik.extenden_euclidean import getInverse
+from ModulareArythmetik.extenden_euclidean import get_inverse
 
-class Restklasse():
+class Restclass():
 
-    def __init__(self, base, currentValue):
+    def __init__(self, base, current_value):
         self.base = base
-        self.currentValue = currentValue % base
+        self.current_value = current_value % base
 
-    def __add__(self, valueToAdd):
-        newValue = self.currentValue + valueToAdd
-        newErg =  newValue % self.base
-        return Restklasse(self.base, newErg)
+    def __add__(self, value_to_add):
+        new_value = self.current_value + value_to_add
+        new_res =  new_value % self.base
+        return Restclass(self.base, new_res)
 
-    def __sub__(self, valueToSub):
-        newValue = self.currentValue - valueToSub
-        newErg =  newValue % self.base
-        return Restklasse(self.base, newErg)
+    def __sub__(self, value_to_sub):
+        new_value = self.current_value - value_to_sub
+        new_res =  new_value % self.base
+        return Restclass(self.base, new_res)
 
-    def __mul__(self, valueToMul):
-        newValue = self.currentValue * valueToMul
-        newErg =  newValue % self.base
-        return Restklasse(self.base, newErg)
+    def __mul__(self, value_to_mul):
+        new_value = self.current_value * value_to_mul
+        new_res =  new_value % self.base
+        return Restclass(self.base, new_res)
 
-    def __pow__(self, valueToPow):
-        newValue = self.currentValue ** valueToPow
-        newErg =  newValue % self.base
-        return Restklasse(self.base, newErg)
+    def __pow__(self, value_to_pow):
+        new_value = self.current_value ** value_to_pow
+        new_res =  new_value % self.base
+        return Restclass(self.base, new_res)
 
-    def __truediv__(self, valueToDiv):
-        invValueToDiv = getInverse(self.base, valueToDiv)
-        erg = (invValueToDiv * self.currentValue) % self.base
-        return Restklasse(self.base, erg)
+    def __truediv__(self, value_to_div):
+        inv_value = get_inverse(self.base, value_to_div)
+        new_res = (inv_value * self.current_value) % self.base
+        return Restclass(self.base, new_res)
 
-    def __lt__(self, valueToCompare):
-        newValue = self.currentValue < (valueToCompare % self.base)
-        return newValue
+    def __lt__(self, value_to_compare):
+        new_value = self.current_value < (value_to_compare % self.base)
+        return new_value
 
-    def __le__(self, valueToCompare):
-        newValue = self.currentValue <= (valueToCompare % self.base)
-        return newValue
+    def __le__(self, value_to_compare):
+        new_value = self.current_value <= (value_to_compare % self.base)
+        return new_value
 
+    def __eq__(self, value_to_compare):
+        new_value = self.current_value == (value_to_compare % self.base)
+        return new_value
 
-    def __eq__(self, valueToCompare):
-        newValue = self.currentValue == (valueToCompare % self.base)
-        return newValue
+    def __ne__(self, value_to_compare):
+        new_value = self.current_value != (value_to_compare % self.base)
+        return new_value
 
-
-    def __ne__(self, valueToCompare):
-        newValue = self.currentValue != (valueToCompare % self.base)
-        return newValue
-
-    def __gt__(self,valueToCompare):
-        newValue = self.currentValue > (valueToCompare % self.base)
-        return newValue
+    def __gt__(self,value_to_compare):
+        new_value = self.current_value > (value_to_compare % self.base)
+        return new_value
 
 
-    def __ge__(self, valueToCompare):
-        newValue = self.currentValue >= (valueToCompare % self.base)
-        return newValue
+    def __ge__(self, value_to_compare):
+        new_value = self.current_value >= (value_to_compare % self.base)
+        return new_value
 
 
