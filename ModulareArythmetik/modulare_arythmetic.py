@@ -1,3 +1,5 @@
+from ModulareArythmetik.extenden_euclidean import getInverse
+
 class Restklasse():
 
     def __init__(self, base, currentValue):
@@ -25,9 +27,9 @@ class Restklasse():
         return Restklasse(self.base, newErg)
 
     def __truediv__(self, valueToDiv):
-        newValue = self.currentValue / valueToDiv
-        newErg =  newValue % self.base
-        return Restklasse(self.base, newErg)
+        invValueToDiv = getInverse(self.base, valueToDiv)
+        erg = (invValueToDiv * self.currentValue) % self.base
+        return Restklasse(self.base, erg)
 
     def __lt__(self, valueToCompare):
         newValue = self.currentValue < (valueToCompare % self.base)
@@ -55,3 +57,5 @@ class Restklasse():
     def __ge__(self, valueToCompare):
         newValue = self.currentValue >= (valueToCompare % self.base)
         return newValue
+
+
