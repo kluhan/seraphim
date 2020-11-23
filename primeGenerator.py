@@ -1,7 +1,7 @@
 from random import randrange
 from secrets import randbits
 
-def PrimeGenerator(size, accuracy=10):
+def prime_generator(size, accuracy=10):
     """ 
     Class to generate primes
 
@@ -20,7 +20,7 @@ def PrimeGenerator(size, accuracy=10):
         8 => 4^-8 = 0.00000152588
     """
 
-    def rabin_miler(n, k):
+    def miller_rabin(n, k):
         """Checks if a given number is prime.
 
         Checks a given number k-times with the Rabin-Miller test
@@ -102,7 +102,7 @@ def PrimeGenerator(size, accuracy=10):
         # Checks all odd numbers, starting with the generated random number, 
         # whether they are prime. Stops after the first prime is found.
         while True:
-            if rabin_miler(random_number, accuracy):
+            if miller_rabin(random_number, accuracy):
                 probable_prime = random_number 
                 break
 
