@@ -1,4 +1,7 @@
 from ModulareArythmetik.extenden_euclidean import get_inverse
+from ModulareArythmetik.power_helper import little_fermat
+from ModulareArythmetik.power_helper import squre_power_calc
+from ModulareArythmetik.power_helper import repeated_square
 
 class RestclassEF():
 
@@ -63,14 +66,16 @@ class RestclassEF():
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 
-    def __efficient_pow(self,  current_value,valuetopow):
-        if(valuetopow > 2):
-            powres_pot = self.__repeated_square(valuetopow)
-            a = current_value**powres_pot
-            r = current_value**(valuetopow - powres_pot)
-            return self.__efficient_mod(a)  * self.__efficient_mod(r)
+    def __efficient_pow(self,  current_value,value_to_pow):
+        #kleiner fermat satz
+        new_pow = little_fermat(self.base, value_to_pow)
+        if(new_pow > 2):
+            powres_pot = repeated_square(value_to_pow)
+            a = squre_power_calc(current_value**powres_pot)
+            r = current_value**(value_to_pow - powres_pot)
+            return self.__efficient_mul(self.__efficient_mod(a),self.__efficient_mod(r))
         else:
-            return self.__efficient_mod(current_value ** valuetopow)
+            return self.__efficient_mod(current_value ** value_to_pow)
 
     def __efficient_lt(self,  current_value,value_to_compare):
         return current_value < self.__efficient_mod(value_to_compare)
@@ -90,14 +95,4 @@ class RestclassEF():
     def __efficient_ge(self,  current_value,value_to_compare):
         return current_value >= self.__efficient_mod(value_to_compare)  
 
-    def __repeated_square(self,value_to_pow):
-        res = 2
-        running = True
-        while(running):
-            if(res*2 < value_to_pow):
-                res = res * 2
-            else:
-                running = False
-                return res
-
-        return res
+ 
