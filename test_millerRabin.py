@@ -17,7 +17,7 @@ def test_MillerRabinTrueNegative():
 
 def test_MillerRabinFalsePositive():
     prime = False
-    for i in range(100):
+    for _ in range(100):
         prime = miller_rabin(88357, 1)
         if(prime != False):
             break
@@ -25,7 +25,7 @@ def test_MillerRabinFalsePositive():
     assert prime == True
 
 def test_MillerRabinFalseNegative():
-    for i in range(1000):
+    for _ in range(1000):
         prime = miller_rabin(3319, 1)
         assert prime == True       
 
