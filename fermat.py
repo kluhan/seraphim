@@ -34,9 +34,9 @@ def fermat(n, k):
     for _ in range(k):
         # test prime drawn base 
         if not check(n):
-            # return false if miller-rabin test proves that n isn't prime
+            # return false if fermat test proves that n isn't prime
             return False
-        # after k-times retrun true if miller-rabin hasn't shown that n isn't prime 
+        # after k-times retrun true if fermat hasn't shown that n isn't prime 
         else:
             return True
         

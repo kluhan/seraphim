@@ -31,7 +31,7 @@ def miller_rabin(n, k):
             return True
 
         # compute rabin-miller for all previous calculated exponents  
-        for i in range(depth - 1):
+        for _ in range(depth - 1):
 
             # check if x is equal to -1
             if x == mod - 1:
@@ -54,7 +54,7 @@ def miller_rabin(n, k):
         depth += 1
 
     # check prime k-times
-    for i in range(k):
+    for _ in range(k):
         # draw random base
         base = randrange(2, n - 1)
 

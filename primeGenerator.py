@@ -1,4 +1,5 @@
 from millerRabin import miller_rabin
+from fermat import fermat
 from secrets import randbits
 
 def prime_generator(size, accuracy=10):
@@ -37,9 +38,10 @@ def prime_generator(size, accuracy=10):
         # Checks all odd numbers, starting with the generated random number, 
         # whether they are prime. Stops after the first prime is found.
         while True:
-            if miller_rabin(random_number, accuracy):
-                probable_prime = random_number 
-                break
+            if fermat(random_number, 1):
+                if miller_rabin(random_number, accuracy):
+                    probable_prime = random_number 
+                    break
 
             random_number += 2
 
