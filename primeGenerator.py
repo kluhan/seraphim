@@ -1,8 +1,9 @@
+import miller_rabin as miller_rabin_reference
 from millerRabin import miller_rabin
 from fermat import fermat
 from secrets import randbits
 
-def prime_generator(size, accuracy=10):
+def prime_generator(size, accuracy=10, mode=1):
     """ 
     Class to generate primes
 
@@ -19,7 +20,19 @@ def prime_generator(size, accuracy=10):
         2 => 4^-2 = 0.0625
         4 => 4^-4 = 0.00390625
         8 => 4^-8 = 0.00000152588
+    mode: determines the test to test primality with
+        0 => fermat
+        1 => miller_rabin
+        2 => miller_rabin_reference
     """
+
+    if(mode == 0):
+        primalityTest = fermat
+    elif(mode == 1):
+        primalityTest = miller_rabin
+    elif(mode == 2):
+        primalityTest = miller_rabin_reference.miller_rabin
+    
 
     while True:
         # generates n crypto-secure random bits
@@ -38,10 +51,9 @@ def prime_generator(size, accuracy=10):
         # Checks all odd numbers, starting with the generated random number, 
         # whether they are prime. Stops after the first prime is found.
         while True:
-            if fermat(random_number, 1):
-                if miller_rabin(random_number, accuracy):
-                    probable_prime = random_number 
-                    break
+            if primalityTest(random_number, accuracy):
+                probable_prime = random_number 
+                break
 
             random_number += 2
 
