@@ -1,4 +1,4 @@
-from ModulareArythmetik.extenden_euclidean import get_inverse
+from helper import extenden_euclidean
 
 class Restclass():
 
@@ -27,7 +27,7 @@ class Restclass():
         return Restclass(self.base, new_res)
 
     def __truediv__(self, value_to_div):
-        inv_value = get_inverse(self.base, value_to_div)
+        inv_value = extenden_euclidean.get_inverse(self.base, value_to_div)
         new_res = (inv_value * self.current_value) % self.base
         return Restclass(self.base, new_res)
 

@@ -1,7 +1,6 @@
-from ModulareArythmetik.extenden_euclidean import get_inverse
-from ModulareArythmetik.power_helper import little_fermat
-from ModulareArythmetik.power_helper import squre_power_calc
-from ModulareArythmetik.power_helper import repeated_square
+# Python Module RestclassEF
+
+from helper import extenden_euclidean, power_helper
 
 class RestclassEF():
 
@@ -50,6 +49,7 @@ class RestclassEF():
         return self.__efficient_ge(self.current_value,value_to_compare)
 
     def __efficient_mod(self, value):
+        #toDo self made
         return value % self.base
 
     def __efficient_add(self, current_value,value_to_add):
@@ -62,16 +62,21 @@ class RestclassEF():
         return current_value * self.__efficient_mod(value_to_mul)
           
     def __efficient_division(self, current_value,value_to_div):
-        inv_value_to_div = get_inverse(self.base, value_to_div)
+        inv_value_to_div = extenden_euclidean.get_inverse(self.base, value_to_div)
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 
     def __efficient_pow(self,  current_value,value_to_pow):
-        #kleiner fermat satz
-        new_pow = little_fermat(self.base, value_to_pow)
+        #fermat
+        new_pow = power_helper.little_fermat(self.base, value_to_pow)
+
+        # square and multiplay
+        # zu binär und dann square and multiplay -> hemming gewicht 1/2
+        # naf- form (non adjecent form) -> hemming gewicht 1/3
+
         if(new_pow > 2):
-            powres_pot = repeated_square(value_to_pow)
-            a = squre_power_calc(current_value**powres_pot)
+            powres_pot = power_helper.repeated_square(value_to_pow)
+            a = power_helper.squre_power_calc(current_value**powres_pot)
             r = current_value**(value_to_pow - powres_pot)
             return self.__efficient_mul(self.__efficient_mod(a),self.__efficient_mod(r))
         else:
@@ -94,5 +99,9 @@ class RestclassEF():
 
     def __efficient_ge(self,  current_value,value_to_compare):
         return current_value >= self.__efficient_mod(value_to_compare)  
+
+    def get_representative(self):
+        #todo,
+        return 32
 
  
