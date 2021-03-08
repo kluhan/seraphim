@@ -1,6 +1,7 @@
 # Python Module RestclassEF
 
-from helper import extenden_euclidean, power_helper
+from halloklauth.helper.power_helper import little_fermat, repeated_square, squre_power_calc
+import helper.extenden_euclidean as ee
 
 class RestclassEF():
 
@@ -62,21 +63,21 @@ class RestclassEF():
         return current_value * self.__efficient_mod(value_to_mul)
           
     def __efficient_division(self, current_value,value_to_div):
-        inv_value_to_div = extenden_euclidean.get_inverse(self.base, value_to_div)
+        inv_value_to_div = ee.get_inverse(self.base, value_to_div)
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 
     def __efficient_pow(self,  current_value,value_to_pow):
         #fermat
-        new_pow = power_helper.little_fermat(self.base, value_to_pow)
+        new_pow = little_fermat(self.base, value_to_pow)
 
         # square and multiplay
         # zu binär und dann square and multiplay -> hemming gewicht 1/2
         # naf- form (non adjecent form) -> hemming gewicht 1/3
 
         if(new_pow > 2):
-            powres_pot = power_helper.repeated_square(value_to_pow)
-            a = power_helper.squre_power_calc(current_value**powres_pot)
+            powres_pot = repeated_square(value_to_pow)
+            a = squre_power_calc(current_value**powres_pot)
             r = current_value**(value_to_pow - powres_pot)
             return self.__efficient_mul(self.__efficient_mod(a),self.__efficient_mod(r))
         else:
