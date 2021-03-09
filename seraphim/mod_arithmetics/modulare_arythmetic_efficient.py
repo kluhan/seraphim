@@ -1,7 +1,7 @@
 # Python Module RestclassEF
 
-from halloklauth.helper.power_helper import little_fermat, repeated_square, squre_power_calc
-import helper.extenden_euclidean as ee
+from seraphim.util.power_helper import little_fermat, repeated_square, squre_power_calc
+from seraphim.util.extenden_euclidean import get_inverse
 
 class RestclassEF():
 
@@ -63,7 +63,7 @@ class RestclassEF():
         return current_value * self.__efficient_mod(value_to_mul)
           
     def __efficient_division(self, current_value,value_to_div):
-        inv_value_to_div = ee.get_inverse(self.base, value_to_div)
+        inv_value_to_div = get_inverse(self.base, value_to_div)
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 

@@ -1,4 +1,6 @@
-from halloklauth.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+# from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 class TestRestclass:
 

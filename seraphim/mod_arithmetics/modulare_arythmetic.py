@@ -1,4 +1,4 @@
-import bins.modarithmetics.helper.extenden_euclidean as extenden_euclidean
+import bins.modarithmetics.util.extenden_euclidean as extenden_euclidean
 
 class Restclass():
 
