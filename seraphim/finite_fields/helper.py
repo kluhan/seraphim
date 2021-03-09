@@ -1,31 +1,25 @@
-import polynomial as poly
-import helper as helper
 import itertools
-import math
-import operator
-import copy
-import random
-from random import randrange
+import polynomial as poly
 
 
-def int_to_base(n, base): 
-    assert base > 1
-    return n % base
+# def int_to_base(n, base): 
+#     assert base > 1
+#     return n % base
 
-def to_base(number, base):
-    assert number >= 0
-    assert base > 1
+# def to_base(number, base):
+#     assert number >= 0
+#     assert base > 1
     
-    field = FiniteField(base)
-    ret = []
-    i = 0
-    while number > 0:
-        digit = number % base
-        ret = [field[digit]] + ret
-        number //= base
-    if len(ret) == 0:
-        ret = [field[0]]
-    return ret
+#     field = FiniteField(base)
+#     ret = []
+#     i = 0
+#     while number > 0:
+#         digit = number % base
+#         ret = [field[digit]] + ret
+#         number //= base
+#     if len(ret) == 0:
+#         ret = [field[0]]
+#     return ret
 
 def prime_factor(n):
     # Primfaktorzerlegung einer Zahl n

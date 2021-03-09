@@ -41,16 +41,16 @@ class FFE(object):
         return FFE(self.field, self.poly * other.poly)
         
         
-ff = finiteField.FF(17,6)
-ffe1 = FFE(ff, poly.Polynomial([1,5,11,4,13,2]))
-print("ffe1: ", ffe1)
+# ff = finiteField.FF(17,6)
+# ffe1 = FFE(ff, poly.Polynomial([1,5,11,4,13,2]))
+# print("ffe1: ", ffe1)
 
-ffe2 = FFE(ff, [12,15,1,3,14,12])
-print("ffe2: ", ffe2)
+# ffe2 = FFE(ff, [12,15,1,3,14,12])
+# print("ffe2: ", ffe2)
         
-ffe3 = FFE(ff, None)  
-print("ffe3: ", ffe3)
+# ffe3 = FFE(ff, None)  
+# print("ffe3: ", ffe3)
 
-print((ffe1 + ffe2).poly.coefficients)
-print((ffe1 - ffe2).poly.coefficients)
-print((ffe1 * ffe2).poly.coefficients)
+# print((ffe1 + ffe2).poly.coefficients)
+# print((ffe1 - ffe2).poly.coefficients)
+# print((ffe1 * ffe2).poly.coefficients)

@@ -1,3 +1,5 @@
+import copy
+
 class Polynomial(object):
     '''Klasse zur Darstellung von Polynomen in Form einer Koeffizientenliste aufsteigend von Grad 0 bis n'''
     def __init__(self, coefficients):
