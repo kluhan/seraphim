@@ -1,7 +1,7 @@
-import miller_rabin as miller_rabin_reference
-from millerRabin import miller_rabin
-from fermat import fermat
 from secrets import randbits
+import miller_rabin as miller_rabin_reference
+from seraphim.util.millerRabin import miller_rabin
+from seraphim.util.fermat import fermat
 
 def prime_generator(size, accuracy=10, mode=1):
     """ 
