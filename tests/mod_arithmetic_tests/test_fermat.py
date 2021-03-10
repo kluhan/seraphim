@@ -1,5 +1,5 @@
 import pytest
-from fermat import fermat
+from seraphim.util.fermat import fermat
 
 def test_FermatTruePositive():
     assert fermat(131, 10) == True
@@ -19,10 +19,10 @@ def test_FermatFalsePositive():
     prime = False
     for _ in range(100):
         prime = fermat(88357, 1)
-        if(prime != False):
+        if(prime == True):
             break
 
-    assert prime == True
+    assert prime == False
 
 def test_FermatFalseNegative():
     for _ in range(1000):

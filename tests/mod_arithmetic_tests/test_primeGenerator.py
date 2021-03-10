@@ -1,5 +1,5 @@
 import pytest
-from primeGenerator import prime_generator
+from seraphim.mod_arithmetics.primeGenerator import prime_generator
 
 def test_PrimeGeneratorSize():
     for _ in range(100):
