@@ -3,7 +3,7 @@ from progress.bar import Bar
 from primeGenerator import prime_generator
 
 
-class Benschmark:
+class Benchmark:
         loop_count = 100
         sizes = [128, 256, 512, 1024, 2048, 4096]
         reference_algorithm = 2

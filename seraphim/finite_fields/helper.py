@@ -2,14 +2,14 @@ import itertools
 import polynomial as poly
 
 
-# def int_to_base(n, base): 
+# def int_to_base(n, base):
 #     assert base > 1
 #     return n % base
 
 # def to_base(number, base):
 #     assert number >= 0
 #     assert base > 1
-    
+
 #     field = FiniteField(base)
 #     ret = []
 #     i = 0
@@ -28,24 +28,24 @@ def prime_factor(n):
     while i * i <= n:
         if n % i:
             i += 1
-        else: 
+        else:
             n //= i
             factors.append(i)
-    
+
     if n > 1:
         factors.append(n)
     return factors
 
-def factor(n): 
+def factor(n):
     # Faktorisierung einer Zahl n
     i = 0
     factors = []
     for i in range(1, n + 1):
-        if n % i == 0: 
+        if n % i == 0:
             factors.append(i)
-    
-    return factors    
-    
+
+    return factors
+
 # https://www.inf.hs-flensburg.de/lang/krypto/algo/euklid.htm#section3
 def ext_gcd(a, b):
     '''Erweiterter euklidischer Algorithmus, kopiert'''
@@ -57,36 +57,37 @@ def ext_gcd(a, b):
         return g, v, u-q*v
 
 # rekursive Implementierung von HCF
-def hcf(x, y): 
+def hcf(x, y):
     '''Highest common factor'''
-    if (y == 0):
+    if y == 0:
         return x
     else:
         return hcf(y, x % y)
 
-'''Hilfsfunktionen zu Polynomen'''
 def get_minimal_polynomial(p, n):
-    '''Funktion zum Erstellen eines minimalen, irreduziblen Polynoms von Grad n und Konstante p: x^n + p'''
+    '''Hilfsfunktionen zu Polynomen
+
+    Funktion zum Erstellen eines minimalen, irreduziblen Polynoms von Grad n und Konstante p: x^n + p'''
     polynomial = [p]
-    while n > 1: 
+    while n > 1:
         polynomial.append(0)
         n = n - 1
-        
+
     polynomial.append(1)
-    
-    return poly.Polynomial(polynomial) 
+
+    return poly.Polynomial(polynomial)
 
 def is_polynomial_coprime(polynomial):
     '''Überprüft, ob ein Polynom teilerfremd (coprime) ist'''
     non_zero_polynomial = [i for i in polynomial.coefficients if i != 0] # Nullen würden Ergebnis von HCF verfälschen
-    
+
     if polynomial.degree() == 0:
         return True
-    
+
     for x, y in itertools.combinations(non_zero_polynomial, 2):
-        if (hcf(x, y) != 1):
+        if hcf(x, y) != 1:
             return False
-        
+
     return True
 
 def zero_polynomial():
