@@ -3,12 +3,14 @@ import helper
 import polynomial as polyn
 import finite_field_element
 
+
 class FF(object):
-    '''
-        Endlicher Körper der Form p^n. Optional kann ein Generator-Polynom übergeben werden.
-        p ist der Modulus und die Charakteristik des Körpers und muss eine Primzahl sein
-        n ist die Dimension und Exponent
-    '''
+    """
+    Endlicher Körper der Form p^n. Optional kann ein Generator-Polynom übergeben werden.
+    p ist der Modulus und die Charakteristik des Körpers und muss eine Primzahl sein
+    n ist die Dimension und Exponent
+    """
+
     def __init__(self, p, n, generator=None):
         assert p > 1
         assert n > 0
@@ -28,11 +30,12 @@ class FF(object):
         s += str(self.generator)
         return str(s)
 
-    def generate_random_element(self, maxint = 100):
+    def generate_random_element(self, maxint=100):
         polynom = generate_random_polynomial(self.n, maxint)
         return finite_field_element.FFE(self, polynom)
 
-def generate_random_polynomial(degree, maxint = 100, mod = True):
+
+def generate_random_polynomial(degree, maxint=100, mod=True):
     coef = []
 
     for i in range(0, degree):
@@ -43,6 +46,7 @@ def generate_random_polynomial(degree, maxint = 100, mod = True):
             coef.append(val)
     coef.append(1)
     return polyn.Polynomial(coef)
+
 
 # ff1 = FF(5,2)
 # print(ff1)

@@ -10,7 +10,7 @@ def poly_ext_synth_division(poly, divisor):
     out = list(dividend)
     normalizer = rev_div[0]
 
-    for i in range(len(dividend)-(len(rev_div)-1)):
+    for i in range(len(dividend) - (len(rev_div) - 1)):
         out[i] /= normalizer
         coef = out[i]
 
@@ -18,7 +18,7 @@ def poly_ext_synth_division(poly, divisor):
             for j in range(1, len(rev_div)):
                 out[i + j] += -rev_div[j] * coef
 
-    separator = -(len(rev_div)-1)
+    separator = -(len(rev_div) - 1)
 
     coef_quotient = out[:separator]
     coef_remainder = out[separator:]
@@ -26,6 +26,7 @@ def poly_ext_synth_division(poly, divisor):
     coef_quotient.reverse()
     coef_remainder.reverse()
     return polyn.Polynomial(coef_quotient), polyn.Polynomial(coef_remainder)
+
 
 polydiv1 = polyn.Polynomial([-42, 0, -12, 1])
 print("polydiv1: ", polydiv1)

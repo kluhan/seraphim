@@ -1,12 +1,13 @@
 class FE(object):
-    '''Element in einem Körper modulo p'''
+    """Element in einem Körper modulo p"""
+
     def __init__(self, n, p):
         self.n = n % p
         self.p = p
 
     def __add__(self, other):
         assert self.p == other.p
-        return FE((self.n + other.n),self.p)
+        return FE((self.n + other.n), self.p)
 
     def __sub__(self, other):
         assert self.p == other.p
@@ -42,8 +43,9 @@ class FE(object):
     def __repr__(self):
         return "FE(%s,%s)" % (str(self.n), str(self.p))
 
-a = FE(3,5)
-b = FE(8,5)
+
+a = FE(3, 5)
+b = FE(8, 5)
 
 print("a:", str(a))
 print(a.p)

@@ -21,6 +21,7 @@ import polynomial as poly
 #         ret = [field[0]]
 #     return ret
 
+
 def prime_factor(n):
     # Primfaktorzerlegung einer Zahl n
     i = 2
@@ -36,6 +37,7 @@ def prime_factor(n):
         factors.append(n)
     return factors
 
+
 def factor(n):
     # Faktorisierung einer Zahl n
     i = 0
@@ -46,28 +48,31 @@ def factor(n):
 
     return factors
 
+
 # https://www.inf.hs-flensburg.de/lang/krypto/algo/euklid.htm#section3
 def ext_gcd(a, b):
-    '''Erweiterter euklidischer Algorithmus, kopiert'''
-    if b==0:
+    """Erweiterter euklidischer Algorithmus, kopiert"""
+    if b == 0:
         return a, 1, 0
     else:
-        g, u, v = ext_gcd(b, a%b)
-        q=a//b
-        return g, v, u-q*v
+        g, u, v = ext_gcd(b, a % b)
+        q = a // b
+        return g, v, u - q * v
+
 
 # rekursive Implementierung von HCF
 def hcf(x, y):
-    '''Highest common factor'''
+    """Highest common factor"""
     if y == 0:
         return x
     else:
         return hcf(y, x % y)
 
-def get_minimal_polynomial(p, n):
-    '''Hilfsfunktionen zu Polynomen
 
-    Funktion zum Erstellen eines minimalen, irreduziblen Polynoms von Grad n und Konstante p: x^n + p'''
+def get_minimal_polynomial(p, n):
+    """Hilfsfunktionen zu Polynomen
+
+    Funktion zum Erstellen eines minimalen, irreduziblen Polynoms von Grad n und Konstante p: x^n + p"""
     polynomial = [p]
     while n > 1:
         polynomial.append(0)
@@ -77,9 +82,12 @@ def get_minimal_polynomial(p, n):
 
     return poly.Polynomial(polynomial)
 
+
 def is_polynomial_coprime(polynomial):
-    '''Überprüft, ob ein Polynom teilerfremd (coprime) ist'''
-    non_zero_polynomial = [i for i in polynomial.coefficients if i != 0] # Nullen würden Ergebnis von HCF verfälschen
+    """Überprüft, ob ein Polynom teilerfremd (coprime) ist"""
+    non_zero_polynomial = [
+        i for i in polynomial.coefficients if i != 0
+    ]  # Nullen würden Ergebnis von HCF verfälschen
 
     if polynomial.degree() == 0:
         return True
@@ -90,8 +98,10 @@ def is_polynomial_coprime(polynomial):
 
     return True
 
+
 def zero_polynomial():
     return poly.Polynomial([])
+
 
 poly1 = poly.Polynomial([4, 6, 8])
 print(is_polynomial_coprime(poly1))
