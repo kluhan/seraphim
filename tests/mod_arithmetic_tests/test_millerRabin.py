@@ -1,11 +1,11 @@
 import pytest
 import mock
-
 from seraphim.util.millerRabin import miller_rabin
+
 class TestMillerRabin:
 
     def test_MillerRabinFalsePositive(self):
-        prime = miller_rabin(11111 , 1, [10], False)
+        prime = miller_rabin(3825123056546413051 , 9, [2, 3, 5, 7, 11, 13, 17, 19, 23])
         assert prime == True  
 
     def test_MillerRabinTruePositive(self):
