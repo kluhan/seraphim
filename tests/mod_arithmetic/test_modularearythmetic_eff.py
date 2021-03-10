@@ -25,10 +25,10 @@ class TestModulareArythmeticEF:
         assert restclass_res.current_value == x
 
     def test_restclass_pow(self):
-        restclass = RestclassEF(5, 13)
-        restclass_res = restclass ** 3
-        x = Mod(5, 13)
-        x = x ** 3
+        restclass = RestclassEF(5, 7)
+        restclass_res = restclass ** 9
+        x = Mod(5, 7)
+        x = x ** 9
         assert restclass_res.current_value == x
 
     def test_restclass_truediv(self):

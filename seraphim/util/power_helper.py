@@ -11,8 +11,18 @@ def repeated_square(value_to_pow):
     return res
 
 
-def squre_power_calc(value_to_pow):
-    return 1
+def squre_power_calc(base, power, modulus):
+    power_bin = str(bin(power))[2:]
+    res = 1
+    for i in power_bin:
+        if i == "1":
+            res = res ** 2
+            res = res * base
+        else:
+            res = res ** 2
+        res = res % modulus
+
+    return res
 
 
 def little_fermat(base, value_to_pow):

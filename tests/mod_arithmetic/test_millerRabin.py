@@ -25,4 +25,4 @@ class TestMillerRabin:
         assert prime
 
         prime = miller_rabin(4294967297, 10)
-        assert prime
+        assert not prime

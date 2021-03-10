@@ -5,31 +5,31 @@ from seraphim.util.extenden_euclidean import get_inverse
 
 
 class RestclassEF:
-    def __init__(self, current_value, modulo):
-        self.modulo = modulo
-        self.current_value = current_value % modulo
+    def __init__(self, current_value, mod):
+        self.mod = mod
+        self.current_value = current_value % mod
 
     def __add__(self, value_to_add):
         new_value = self.__efficient_add(self.current_value, value_to_add)
-        return RestclassEF(new_value, self.modulo)
+        return RestclassEF(new_value, self.mod)
 
     def __sub__(self, value_to_sub):
         new_value = self.__efficient_sub(self.current_value, value_to_sub)
-        return RestclassEF(new_value, self.modulo)
+        return RestclassEF(new_value, self.mod)
 
     def __mul__(self, value_to_mul):
         new_value = self.__efficient_mul(self.current_value, value_to_mul)
-        return RestclassEF(new_value, self.modulo)
+        return RestclassEF(new_value, self.mod)
 
     def __pow__(self, value_to_pow):
         new_value = self.__efficient_pow(self.current_value, value_to_pow)
         new_res = self.__efficient_mod(new_value)
-        return RestclassEF(new_res, self.modulo)
+        return RestclassEF(new_res, self.mod)
 
     def __truediv__(self, value_to_div):
         new_value = self.__efficient_division(self.current_value, value_to_div)
         new_res = self.__efficient_mod(new_value)
-        return RestclassEF(new_res, self.modulo)
+        return RestclassEF(new_res, self.mod)
 
     def __lt__(self, value_to_compare):
         return self.__efficient_lt(self.current_value, value_to_compare)
@@ -51,7 +51,7 @@ class RestclassEF:
 
     def __efficient_mod(self, value):
         # toDo self made
-        return value % self.modulo
+        return value % self.mod
 
     def __efficient_add(self, current_value, value_to_add):
         return current_value + self.__efficient_mod(value_to_add)
@@ -63,27 +63,18 @@ class RestclassEF:
         return current_value * self.__efficient_mod(value_to_mul)
 
     def __efficient_division(self, current_value, value_to_div):
-        inv_value_to_div = get_inverse(self.modulo, value_to_div)
+        inv_value_to_div = get_inverse(self.mod, value_to_div)
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 
     def __efficient_pow(self, current_value, value_to_pow):
         # fermat
-        new_pow = little_fermat(self.modulo, value_to_pow)
+        # new_pow = little_fermat(self.mod, value_to_pow)
 
         # square and multiplay
         # zu binär und dann square and multiplay -> hemming gewicht 1/2
         # naf- form (non adjecent form) -> hemming gewicht 1/3
-
-        if new_pow > 2:
-            powres_pot = repeated_square(value_to_pow)
-            a = squre_power_calc(current_value ** powres_pot)
-            r = current_value ** (value_to_pow - powres_pot)
-            return self.__efficient_mul(
-                self.__efficient_mod(a), self.__efficient_mod(r)
-            )
-        else:
-            return self.__efficient_mod(current_value ** value_to_pow)
+        return squre_power_calc(current_value, value_to_pow, self.mod)
 
     def __efficient_lt(self, current_value, value_to_compare):
         return current_value < self.__efficient_mod(value_to_compare)
