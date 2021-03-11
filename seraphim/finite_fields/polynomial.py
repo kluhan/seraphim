@@ -141,9 +141,17 @@ class Polynomial(object):
 
     def deriviate(self):
         """Kopiere Polynom und gib Ableitung mittels differentiate() zurück"""
-        copy = Polynomial(self.coeff[:])
-        copy.differentiate()
-        return copy
+        poly_copy = Polynomial(self.coeff[:])
+        poly_copy.differentiate()
+        return poly_copy
+
+    def calculate(self, x):
+        ret = 0
+
+        for n, a in enumerate(self.coefficients):
+            ret += a * x ** n
+
+        return ret
 
 
 poly1 = Polynomial([1, 3, 6, 1])
