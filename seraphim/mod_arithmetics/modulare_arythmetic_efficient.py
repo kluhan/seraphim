@@ -1,13 +1,43 @@
 # Python Module RestclassEF
-
-from seraphim.util.power_helper import little_fermat, repeated_square, squre_power_calc
+from seraphim.util.power_helper import square_power_calc
 from seraphim.util.extenden_euclidean import get_inverse
+
+
+class Error(Exception):
+    """Base class for other exceptions"""
+
+
+class ValueNotInZError(Error):
+    """Raised when the input value is too small"""
+
+
+class ModIsZeroError(Error):
+    """Raised when the input value is too small"""
 
 
 class RestclassEF:
     def __init__(self, current_value, mod):
-        self.mod = mod
-        self.current_value = current_value % mod
+        try:
+            if mod == 0:
+                raise ModIsZeroError
+            if (
+                not str(current_value).replace("-", "").isnumeric()
+                or not str(mod).replace("-", "").isnumeric()
+            ):
+                raise ValueNotInZError
+            self.mod = mod
+            self.current_value = current_value % mod
+        except ModIsZeroError:
+            print("Given mod was 0, try a mod value that is not 0")
+            raise
+
+        except ValueNotInZError:
+            print("Some initialize value was not in Z, try using only integer.")
+            print(f"current_value was: {current_value}")
+            print(f"mod was: {mod}")
+            raise
+        print(f"current_value was: {current_value}")
+        print(f"mod was: {mod}")
 
     def __add__(self, value_to_add):
         new_value = self.__efficient_add(self.current_value, value_to_add)
@@ -51,6 +81,9 @@ class RestclassEF:
 
     def __efficient_mod(self, value):
         # toDo self made
+        #   - einfach mod rechnen
+        #   - ausgabe imemr positiv egal was reinkomme yo
+        #   - was passiert mit x mod -y wenn der mod basis negativ ist
         return value % self.mod
 
     def __efficient_add(self, current_value, value_to_add):
@@ -68,13 +101,7 @@ class RestclassEF:
         return self.__efficient_mod(res)
 
     def __efficient_pow(self, current_value, value_to_pow):
-        # fermat
-        # new_pow = little_fermat(self.mod, value_to_pow)
-
-        # square and multiplay
-        # zu binär und dann square and multiplay -> hemming gewicht 1/2
-        # naf- form (non adjecent form) -> hemming gewicht 1/3
-        return squre_power_calc(current_value, value_to_pow, self.mod)
+        return square_power_calc(current_value, value_to_pow, self.mod)
 
     def __efficient_lt(self, current_value, value_to_compare):
         return current_value < self.__efficient_mod(value_to_compare)

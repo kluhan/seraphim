@@ -11,7 +11,7 @@ def repeated_square(value_to_pow):
     return res
 
 
-def squre_power_calc(base, power, modulus):
+def square_power_calc(base, power, modulus):
     power_bin = str(bin(power))[2:]
     res = 1
     for i in power_bin:

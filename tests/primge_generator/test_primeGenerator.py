@@ -1,4 +1,4 @@
-from seraphim.mod_arithmetics.primeGenerator import prime_generator
+from seraphim.prime_generator.primeGenerator import prime_generator
 
 
 def test_PrimeGeneratorSize():

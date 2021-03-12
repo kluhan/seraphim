@@ -4,7 +4,7 @@ from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 
 class TestBigNumbers:
-    size = 2 ** 13
+    size = 2 ** 14
 
     def test_restclass_add(self):
         base = randbits(self.size)
