@@ -40,26 +40,54 @@ class RestclassEF:
         print(f"mod was: {mod}")
 
     def __add__(self, value_to_add):
-        new_value = self.__efficient_add(self.current_value, value_to_add)
+        if isinstance(value_to_add, RestclassEF):
+            new_value = self.__efficient_add(
+                self.current_value, value_to_add.current_value
+            )
+        else:
+            new_value = self.__efficient_add(self.current_value, value_to_add)
         return RestclassEF(new_value, self.mod)
 
     def __sub__(self, value_to_sub):
-        new_value = self.__efficient_sub(self.current_value, value_to_sub)
+        if isinstance(value_to_sub, RestclassEF):
+            new_value = self.__efficient_sub(
+                self.current_value, value_to_sub.current_value
+            )
+        else:
+            new_value = self.__efficient_sub(self.current_value, value_to_sub)
         return RestclassEF(new_value, self.mod)
 
     def __mul__(self, value_to_mul):
-        new_value = self.__efficient_mul(self.current_value, value_to_mul)
+        if isinstance(value_to_mul, RestclassEF):
+            new_value = self.__efficient_mul(
+                self.current_value, value_to_mul.current_value
+            )
+        else:
+            new_value = self.__efficient_mul(self.current_value, value_to_mul)
         return RestclassEF(new_value, self.mod)
 
     def __pow__(self, value_to_pow):
-        new_value = self.__efficient_pow(self.current_value, value_to_pow)
+        if isinstance(value_to_pow, RestclassEF):
+            new_value = self.__efficient_pow(
+                self.current_value, value_to_pow.current_value
+            )
+        else:
+            new_value = self.__efficient_pow(self.current_value, value_to_pow)
         new_res = self.__efficient_mod(new_value)
         return RestclassEF(new_res, self.mod)
 
     def __truediv__(self, value_to_div):
-        new_value = self.__efficient_division(self.current_value, value_to_div)
+        if isinstance(value_to_div, RestclassEF):
+            new_value = self.__efficient_division(
+                self.current_value, value_to_div.current_value
+            )
+        else:
+            new_value = self.__efficient_division(self.current_value, value_to_div)
         new_res = self.__efficient_mod(new_value)
         return RestclassEF(new_res, self.mod)
+
+    def __neg__(self):
+        return self.mod - self.current_value
 
     def __lt__(self, value_to_compare):
         return self.__efficient_lt(self.current_value, value_to_compare)

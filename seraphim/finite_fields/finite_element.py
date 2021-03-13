@@ -44,14 +44,14 @@ class FE(object):
         return "FE(%s,%s)" % (str(self.n), str(self.p))
 
 
-a = FE(3, 5)
-b = FE(8, 5)
-
-print("a:", str(a))
-print(a.p)
-print("b:", str(b))
-print(b.p)
-print("a+b:", str(a + b))
-print("a*b:", str(a * b))
-print("a-b:", str(a - b))
-print("a/b:", str(a / b))
+# a = FE(3, 5)
+# b = FE(8, 5)
+#
+# print("a:", str(a))
+# print(a.p)
+# print("b:", str(b))
+# print(b.p)
+# print("a+b:", str(a + b))
+# print("a*b:", str(a * b))
+# print("a-b:", str(a - b))
+# print("a/b:", str(a / b))

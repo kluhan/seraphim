@@ -1,4 +1,7 @@
-import polynomial as poly
+import polynomial as polyn
+from seraphim.finite_fields.polynomial_restklasse import PolynomialModulo
+from seraphim.finite_fields.poly_division import poly_ext_synth_division
+from seraphim.finite_fields.helper import is_reducible
 
 
 class FFE(object):
@@ -12,19 +15,28 @@ class FFE(object):
     def __init__(self, field, param):
         """Field vom Typ FF, param kann verschiedene Typen annehmen: Polynomial, list[]"""
         self.field = field
+        print(f"SOME PARAMS YO {type(param)}")
 
-        if isinstance(param, poly.Polynomial):
+        if isinstance(param, polyn.Polynomial):
+            self.poly = PolynomialModulo(param.coefficients, self.field.p)
+        elif isinstance(param, PolynomialModulo):
             self.poly = param
         elif isinstance(param, list):
-            self.poly = poly.Polynomial(param)
+            self.poly = PolynomialModulo(param, self.field.p)
         else:
-            self.poly = None
+            print("AN DIESE STELLE MUSS EINE TOLLE FEHLERMELDUNG HIN")
+            assert ()
+
+        #       while is_reducible(self.poly, self.field.generator):
+        #          self.poly = poly_ext_synth_division(self.poly, field.generator)
 
         self.p = self.field.p
         self.n = self.field.n
 
     def __str__(self):
-        if isinstance(self.poly, poly.Polynomial):
+        if isinstance(self.poly, polyn.Polynomial) or isinstance(
+            self.poly, PolynomialModulo
+        ):
             return "FF(%s,%s), Polynomial:%s" % (
                 str(self.p),
                 str(self.n),

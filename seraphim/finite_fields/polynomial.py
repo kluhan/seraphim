@@ -18,7 +18,6 @@ class Polynomial(object):
 
     def __add__(self, other):
         result = []
-        zero = self._zero_()
 
         max_iter = max(self.degree(), other.degree()) + 1
         i = 0

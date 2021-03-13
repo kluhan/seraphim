@@ -79,6 +79,14 @@ def is_polynomial_coprime(polynomial):
     return True
 
 
+def is_reducible(polynom, gen):
+    zero = polynom - polynom
+    for m in gen:
+        if m.degree() > 0 and polynom % m == zero:
+            return True, m
+    return False
+
+
 def zero_polynomial():
     return poly.Polynomial([])
 
