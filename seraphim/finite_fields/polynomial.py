@@ -1,4 +1,5 @@
 import copy
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 
 class Polynomial(object):
@@ -151,6 +152,13 @@ class Polynomial(object):
             ret += a * x ** n
 
         return ret
+
+
+class PolynomialModulo(Polynomial):
+    def __init__(self, coefficients, p):
+        super().__init__(coefficients)
+        for i in range(len(coefficients)):
+            self.coefficients[i] = RestclassEF(coefficients[i], p)
 
 
 poly1 = Polynomial([1, 3, 6, 1])

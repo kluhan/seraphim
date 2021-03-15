@@ -1,5 +1,6 @@
 import itertools
 import polynomial as poly
+from seraphim.finite_fields import mod_finite
 
 
 def prime_factor(n):
@@ -79,10 +80,15 @@ def is_polynomial_coprime(polynomial):
     return True
 
 
-def is_reducible(polynom, gen):
+def is_reducible(polynom, p):
+    intmod = mod_finite.ZModP(p)
+
+    # the fuck tut es ?
+    zmodx = [poly(list(reversed(x))) for x in intmod]
+
     zero = polynom - polynom
-    for m in gen:
-        if m.degree() > 0 and polynom % m == zero:
+    for m in zmodx:
+        if m.deg() > 0 and polynom % m == zero:
             return True, m
     return False
 

@@ -1,6 +1,6 @@
-import finite_element
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
-
+## Generiert die Representanten einer Restklasse zum mod p
 class ZModP(list):
     """Implementierung von Zahlen Z mod p"""
 
@@ -9,7 +9,7 @@ class ZModP(list):
         list.__init__(self)
 
         for i in range(p):
-            self.append(finite_element.FE(i, p))
+            self.append(RestclassEF(i, p))
 
 
 zmodp = ZModP(17)
