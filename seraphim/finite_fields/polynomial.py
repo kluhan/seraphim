@@ -117,6 +117,7 @@ class Polynomial(object):
     def __ne__(self, other):
         return not self == other
 
+    # ToDo Div austasuchen gegen polysynth
     def __div__(self, other):
         div, mod = divmod(self, other)
         assert mod == Polynomial([self._zero_()])

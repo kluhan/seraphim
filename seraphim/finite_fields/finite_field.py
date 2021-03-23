@@ -1,7 +1,7 @@
 from random import randrange
-import helper
-import polynomial as polyn
-import finite_field_element
+from seraphim.finite_fields.helper import get_minimal_polynomial
+from seraphim.finite_fields.polynomial import Polynomial
+from seraphim.finite_fields.finite_field_element import FFE
 
 
 class FF(object):
@@ -18,10 +18,10 @@ class FF(object):
         self.p = p
         self.n = n
 
-        if isinstance(generator, polyn.Polynomial):
+        if isinstance(generator, Polynomial):
             self.generator = generator
         else:
-            self.generator = helper.get_minimal_polynomial(p, n)
+            self.generator = get_minimal_polynomial(p, n)
 
     def __str__(self):
         s = "FF(%s^%s)" % (str(self.p), str(self.n))
@@ -32,7 +32,7 @@ class FF(object):
 
     def generate_random_element(self, maxint=100):
         polynom = generate_random_polynomial(self.n, maxint)
-        return finite_field_element.FFE(self, polynom)
+        return FFE(self, polynom)
 
 
 def generate_random_polynomial(degree, maxint=100, mod=True):
@@ -45,4 +45,4 @@ def generate_random_polynomial(degree, maxint=100, mod=True):
         else:
             coef.append(val)
     coef.append(1)
-    return polyn.Polynomial(coef)
+    return Polynomial(coef)

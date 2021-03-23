@@ -1,6 +1,6 @@
+import numpy as np
 from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.finite_fields.poly_division import poly_ext_synth_division
-import numpy as np
 
 
 class TestFiniteFieldElement:
@@ -10,8 +10,8 @@ class TestFiniteFieldElement:
         print("polydiv1: ", polydiv1)
         print("polydiv2: ", polydiv2)
 
-        y = np.array([4, 9, 5, 4])
-        x = np.array([1, 2])
+        y = np.array([4, 5, 9, 4])
+        x = np.array([2, 1])
         print("numpy_polydiv1: ", y)
         print("numpy_polydiv2: ", x)
 
@@ -26,6 +26,3 @@ class TestFiniteFieldElement:
 
 x = TestFiniteFieldElement()
 x.test_poly_ext_synth_division()
-
-
-# Defining ndarray
