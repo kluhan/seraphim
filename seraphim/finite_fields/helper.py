@@ -1,6 +1,6 @@
 import itertools
 import polynomial as poly
-from seraphim.finite_fields import mod_finite
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 
 def prime_factor(n):
@@ -81,7 +81,7 @@ def is_polynomial_coprime(polynomial):
 
 
 def is_reducible(polynom, p):
-    intmod = mod_finite.ZModP(p)
+    intmod = RestclassEF(1, p).get_representative()
 
     # the fuck tut es ?
     zmodx = [poly(list(reversed(x))) for x in intmod]
@@ -95,10 +95,3 @@ def is_reducible(polynom, p):
 
 def zero_polynomial():
     return poly.Polynomial([])
-
-
-poly1 = poly.Polynomial([4, 6, 8])
-print(is_polynomial_coprime(poly1))
-
-poly2 = poly.Polynomial([1, 3, 5, 11])
-print(is_polynomial_coprime(poly2))

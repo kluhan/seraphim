@@ -150,5 +150,7 @@ class RestclassEF:
         return current_value >= self.__efficient_mod(value_to_compare)
 
     def get_representative(self):
-        # todo,
-        return 32
+        x = []
+        for i in range(self.mod):
+            x.append(i)
+        return x

@@ -3,6 +3,11 @@ from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 
 class TestModulareArythmeticEF:
+    def test_restclass_representative(self):
+        restclass = RestclassEF(5, 10)
+        check = restclass.get_representative() == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+        assert check
+
     def test_restclass_add(self):
         restclass = RestclassEF(5, 13)
         x = Mod(5, 13)
