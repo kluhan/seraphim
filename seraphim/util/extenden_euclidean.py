@@ -49,11 +49,15 @@ def __extended_euclid(base, value_to_inverse):
 
     if rest == 0:
         logging.error(
-            f"ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}"
+            "ERROR - UNDEFINED INVERSE Base: %s, Value: %s", base, value_to_inverse
         )
         raise InversionError(
             "r = base-(q*a)",
-            f"ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}",
+            (
+                "ERROR - UNDEFINED INVERSE Base: %s, Value: %s",
+                base,
+                value_to_inverse,
+            ),
         )
 
     # standard init for reverse euclid
@@ -70,8 +74,6 @@ def __extended_euclid(base, value_to_inverse):
         a = rest
 
         q = int(result / a)
-        #if q < 0:
-        #    q = 0
 
         rest = result - (q * a)
 

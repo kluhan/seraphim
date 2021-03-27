@@ -46,5 +46,3 @@ def generate_random_polynomial(degree, maxint=100, mod=True):
             coef.append(val)
     coef.append(1)
     return Polynomial(coef)
-
-

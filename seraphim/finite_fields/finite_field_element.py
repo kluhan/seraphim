@@ -1,7 +1,8 @@
-from seraphim.finite_fields.polynomial import Polynomial, PolynomialModulo
-from seraphim.finite_fields.poly_division import poly_ext_synth_division
-from seraphim.finite_fields.helper import is_reducible
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+from seraphim.finite_fields.polynomial import Polynomial
+from seraphim.finite_fields.polynomial import PolynomialModulo
+
+# from seraphim.finite_fields.poly_division import poly_ext_synth_division
+# from seraphim.finite_fields.helper import is_reducible
 
 
 class FFE(object):
@@ -27,7 +28,7 @@ class FFE(object):
             print("AN DIESE STELLE MUSS EINE TOLLE FEHLERMELDUNG HIN")
             assert ()
 
-        #while is_reducible(self.poly, self.field.p):
+        # while is_reducible(self.poly, self.field.p):
         #    self.poly = poly_ext_synth_division(self.poly, field.generator)
 
     def __str__(self):
@@ -58,8 +59,6 @@ class FFE(object):
 
     def getConstant(self):
         return self.poly.coefficients[0]
-    
+
     def getLinear(self):
         return self.poly.coefficients[1]
-
-
