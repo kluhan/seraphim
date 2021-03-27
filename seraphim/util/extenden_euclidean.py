@@ -85,11 +85,11 @@ def __extended_euclid(base, value_to_inverse):
 
     if rest == invers:
         logging.error(
-            f"ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}"
+            "ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}"
         )
         raise InversionError(
             "r = base-(q*a)",
-            f"ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}",
+            "ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}",
         )
 
     return invers
