@@ -1,3 +1,4 @@
+import numpy as np
 from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.finite_fields.finite_field import FF
 from seraphim.finite_fields.finite_field_element import FFE
@@ -12,24 +13,18 @@ class TestFiniteFieldElement:
 
     def test_finite_field_element_add(self):
         res = self.ffe1 + self.ffe2
-        print(res.poly.coefficients)
-        # check = numpy_z == poly3.coefficients
-        # assert check.all()
+        numpy_z = np.polyadd(self.ffe1.poly.coefficients, self.ffe2.poly.coefficients)
+        check = res.poly.coefficients == numpy_z
+        assert check.all()
 
     def test_finite_field_element_sub(self):
         res = self.ffe1 - self.ffe2
-        print(res.poly.coefficients)
-        # check = numpy_z == poly3.coefficients
-        # assert check.all()
+        numpy_z = np.polysub(self.ffe1.poly.coefficients, self.ffe2.poly.coefficients)
+        check = res.poly.coefficients == numpy_z
+        assert check.all()
 
     def test_finite_field_element_mul(self):
         res = self.ffe1 * self.ffe2
-        print(res.poly.cofficients)
-        # check = numpy_z == poly3.coefficients
-        # assert check.all()
-
-
-x = TestFiniteFieldElement()
-x.test_finite_field_element_add()
-x.test_finite_field_element_sub()
-x.test_finite_field_element_mul()
+        numpy_z = np.polymul(self.ffe1.poly.coefficients, self.ffe2.poly.coefficients)
+        check = res.poly.coefficients == numpy_z
+        assert check.all()

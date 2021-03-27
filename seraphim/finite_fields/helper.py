@@ -94,4 +94,4 @@ def is_reducible(polynom, p):
 
 
 def zero_polynomial():
-    return Polynomial.Polynomial([])
+    return Polynomial([])

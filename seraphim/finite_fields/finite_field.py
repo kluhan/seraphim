@@ -11,7 +11,7 @@ class FF(object):
     n ist die Dimension und Exponent
     """
 
-    def __init__(self, p, n, generator=None):
+    def __init__(self, n, p, generator=None):
         assert p > 1
         assert n > 0
 

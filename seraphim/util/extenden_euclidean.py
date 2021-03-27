@@ -74,8 +74,6 @@ def __extended_euclid(base, value_to_inverse):
         a = rest
 
         q = int(result / a)
-        # if q < 0:
-        #    q = 0
 
         rest = result - (q * a)
 

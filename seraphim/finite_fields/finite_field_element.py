@@ -1,5 +1,6 @@
 from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.finite_fields.polynomial import PolynomialModulo
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 # from seraphim.finite_fields.poly_division import poly_ext_synth_division
 # from seraphim.finite_fields.helper import is_reducible
@@ -31,18 +32,11 @@ class FFE(object):
         # while is_reducible(self.poly, self.field.p):
         #    self.poly = poly_ext_synth_division(self.poly, field.generator)
 
-        self.p = self.field.p
-        self.n = self.field.n
-
     def __str__(self):
-        if isinstance(self.poly, Polynomial) or isinstance(self.poly, PolynomialModulo):
-            return "FF(%s,%s), Polynomial:%s" % (
-                str(self.p),
-                str(self.n),
-                str(self.poly),
-            )
-        else:
-            return "FFE(%s,%s)" % (str(self.p), str(self.n))
+        return "FiniteField(%s), Polynomial:%s" % (
+            str(self.field),
+            str(self.poly),
+        )
 
     def __add__(self, other):
         assert self.field == other.field
@@ -55,3 +49,17 @@ class FFE(object):
     def __mul__(self, other):
         assert self.field == other.field
         return FFE(self.field, self.poly * other.poly)
+
+    def calculate(self, x):
+        ret = RestclassEF(0, self.field.p)
+
+        for n, a in enumerate(self.poly.coefficients):
+            ret += a * x ** n
+
+        return ret
+
+    def getConstant(self):
+        return self.poly.coefficients[0]
+
+    def getLinear(self):
+        return self.poly.coefficients[1]
