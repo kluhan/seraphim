@@ -145,32 +145,21 @@ class Polynomial(object):
         poly_copy.differentiate()
         return poly_copy
 
-    def calculate(self, x):
-        ret = 0
+    #def calculate(self, x):
+    #    ret = 0
 
-        for n, a in enumerate(self.coefficients):
-            ret += a * x ** n
+    #    for n, a in enumerate(self.coefficients):
+    #        ret += a * x ** n
 
-        return ret
+    #    return ret
 
-    def getConstant(self):
-        return self.coefficients[0]
-    
-    def getLinear(self):
-        return self.coefficients[1]
 
 
 class PolynomialModulo(Polynomial):
     def __init__(self, coefficients, p):
         super().__init__(coefficients)
-        self.p = p
+        #self.p = p
         for i in range(len(coefficients)):
             self.coefficients[i] = RestclassEF(coefficients[i], p)
 
-    def calculate(self, x):
-        ret = RestclassEF(0, self.p)
-
-        for n, a in enumerate(self.coefficients):
-            ret += a * x ** n
-
-        return ret
+   
