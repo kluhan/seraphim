@@ -1,6 +1,9 @@
-import polynomial as polyn
-from seraphim.finite_fields.poly_division import poly_ext_synth_division
-from seraphim.finite_fields.helper import is_reducible
+from seraphim.finite_fields.polynomial import Polynomial
+from seraphim.finite_fields.polynomial import PolynomialModulo
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+
+# from seraphim.finite_fields.poly_division import poly_ext_synth_division
+# from seraphim.finite_fields.helper import is_reducible
 
 
 class FFE(object):
@@ -16,33 +19,24 @@ class FFE(object):
         self.field = field
         print(f"SOME PARAMS YO {type(param)}")
 
-        if isinstance(param, polyn.Polynomial):
-            self.poly = polyn.PolynomialModulo(param.coefficients, self.field.p)
-        elif isinstance(param, polyn.PolynomialModulo):
+        if isinstance(param, Polynomial):
+            self.poly = PolynomialModulo(param.coefficients, self.field.p)
+        elif isinstance(param, PolynomialModulo):
             self.poly = param
         elif isinstance(param, list):
-            self.poly = polyn.PolynomialModulo(param, self.field.p)
+            self.poly = PolynomialModulo(param, self.field.p)
         else:
             print("AN DIESE STELLE MUSS EINE TOLLE FEHLERMELDUNG HIN")
             assert ()
 
-        while is_reducible(self.poly, self.field.p):
-            self.poly = poly_ext_synth_division(self.poly, field.generator)
-
-        self.p = self.field.p
-        self.n = self.field.n
+        # while is_reducible(self.poly, self.field.p):
+        #    self.poly = poly_ext_synth_division(self.poly, field.generator)
 
     def __str__(self):
-        if isinstance(self.poly, polyn.Polynomial) or isinstance(
-            self.poly, polyn.PolynomialModulo
-        ):
-            return "FF(%s,%s), Polynomial:%s" % (
-                str(self.p),
-                str(self.n),
-                str(self.poly),
-            )
-        else:
-            return "FFE(%s,%s)" % (str(self.p), str(self.n))
+        return "FiniteField(%s), Polynomial:%s" % (
+            str(self.field),
+            str(self.poly),
+        )
 
     def __add__(self, other):
         assert self.field == other.field
@@ -56,17 +50,16 @@ class FFE(object):
         assert self.field == other.field
         return FFE(self.field, self.poly * other.poly)
 
+    def calculate(self, x):
+        ret = RestclassEF(0, self.field.p)
 
-# ff = finiteField.FF(17,6)
-# ffe1 = FFE(ff, poly.Polynomial([1,5,11,4,13,2]))
-# print("ffe1: ", ffe1)
+        for n, a in enumerate(self.poly.coefficients):
+            ret += a * x ** n
 
-# ffe2 = FFE(ff, [12,15,1,3,14,12])
-# print("ffe2: ", ffe2)
+        return ret
 
-# ffe3 = FFE(ff, None)
-# print("ffe3: ", ffe3)
+    def getConstant(self):
+        return self.poly.coefficients[0]
 
-# print((ffe1 + ffe2).poly.coefficients)
-# print((ffe1 - ffe2).poly.coefficients)
-# print((ffe1 * ffe2).poly.coefficients)
+    def getLinear(self):
+        return self.poly.coefficients[1]

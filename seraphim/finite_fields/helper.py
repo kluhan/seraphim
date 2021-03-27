@@ -1,6 +1,6 @@
 import itertools
-import polynomial as poly
-from seraphim.finite_fields import mod_finite
+from seraphim.finite_fields.polynomial import Polynomial
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 
 def prime_factor(n):
@@ -54,14 +54,14 @@ def get_minimal_polynomial(p, n):
     """Hilfsfunktionen zu Polynomen
 
     Funktion zum Erstellen eines minimalen, irreduziblen Polynoms von Grad n und Konstante p: x^n + p"""
-    polynomial = [p]
+    polynom = [p]
     while n > 1:
-        polynomial.append(0)
+        polynom.append(0)
         n = n - 1
 
-    polynomial.append(1)
+    polynom.append(1)
 
-    return poly.Polynomial(polynomial)
+    return Polynomial(polynom)
 
 
 def is_polynomial_coprime(polynomial):
@@ -81,10 +81,10 @@ def is_polynomial_coprime(polynomial):
 
 
 def is_reducible(polynom, p):
-    intmod = mod_finite.ZModP(p)
+    intmod = RestclassEF(1, p).get_representative()
 
     # the fuck tut es ?
-    zmodx = [poly(list(reversed(x))) for x in intmod]
+    zmodx = [Polynomial(list(reversed(x))) for x in intmod]
 
     zero = polynom - polynom
     for m in zmodx:
@@ -94,11 +94,4 @@ def is_reducible(polynom, p):
 
 
 def zero_polynomial():
-    return poly.Polynomial([])
-
-
-poly1 = poly.Polynomial([4, 6, 8])
-print(is_polynomial_coprime(poly1))
-
-poly2 = poly.Polynomial([1, 3, 5, 11])
-print(is_polynomial_coprime(poly2))
+    return Polynomial([])
