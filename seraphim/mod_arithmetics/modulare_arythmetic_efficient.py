@@ -18,6 +18,9 @@ class ModIsZeroError(Error):
 class RestclassEF:
     def __init__(self, current_value, mod):
         try:
+            if isinstance(current_value, RestclassEF):
+                current_value = current_value.current_value
+
             if mod == 0:
                 raise ModIsZeroError
             if (
