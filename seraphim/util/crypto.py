@@ -1,28 +1,26 @@
 from seraphim.elliptic_curves.elliptic_curve import EllipticCurve
 from seraphim.elliptic_curves.elliptic_curve_point import EllipticCurvePoint
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
-    
+
 curve = [
-    0, #Constant
-    1, #x^1
-    486662, #x^2
-    1, #x^3
+    0,  # Constant
+    1,  # x^1
+    486662,  # x^2
+    1,  # x^3
 ]
 
 
-
-#curve = [
+# curve = [
 #    1, #Constant
 #    1, #x^1
 #    0, #x^2
 #    1, #x^3
-#]
+# ]
 
 
-mod = (2 ** 255)-19
-#print(str(mod))
-#mod = 40206835204840513073
-
+mod = (2 ** 255) - 19
+# print(str(mod))
+# mod = 40206835204840513073
 
 
 generator = 9
