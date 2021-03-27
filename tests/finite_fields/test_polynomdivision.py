@@ -5,24 +5,13 @@ from seraphim.finite_fields.poly_division import poly_ext_synth_division
 
 class TestFiniteFieldElement:
     def test_poly_ext_synth_division(self):
-        polydiv1 = Polynomial([4, 9, 5, 4])
-        polydiv2 = Polynomial([1, 2])
-        print("polydiv1: ", polydiv1)
-        print("polydiv2: ", polydiv2)
+        poly_1 = Polynomial([4, 9, 5, 4])
+        poly_2 = Polynomial([1, 2])
+        poly_numpy_1 = np.array([4, 5, 9, 4])
+        poly_numpy_2 = np.array([2, 1])
 
-        y = np.array([4, 5, 9, 4])
-        x = np.array([2, 1])
-        print("numpy_polydiv1: ", y)
-        print("numpy_polydiv2: ", x)
-
-        polydiv, remainder = poly_ext_synth_division(polydiv1, polydiv2)
-        print("polydiv:", polydiv)
-        print("remainder:", remainder)
-
-        quotient, remainder = np.polydiv(y, x)
-        print("numpy_polydiv:", quotient)
-        print("numpy_remainder:", remainder)
-
-
-x = TestFiniteFieldElement()
-x.test_poly_ext_synth_division()
+        polydiv, remainder_self = poly_ext_synth_division(poly_1, poly_2)
+        quotient, remainder_numpy = np.polydiv(poly_numpy_1, poly_numpy_2)
+        check_quotients = list(reversed(polydiv.coefficients)) == quotient
+        check_remainder = remainder_self.coefficients == remainder_numpy
+        assert check_quotients.all() and check_remainder.all()

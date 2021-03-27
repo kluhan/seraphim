@@ -1,7 +1,8 @@
 from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.finite_fields.polynomial import PolynomialModulo
-from seraphim.finite_fields.poly_division import poly_ext_synth_division
-from seraphim.finite_fields.helper import is_reducible
+
+# from seraphim.finite_fields.poly_division import poly_ext_synth_division
+# from seraphim.finite_fields.helper import is_reducible
 
 
 class FFE(object):

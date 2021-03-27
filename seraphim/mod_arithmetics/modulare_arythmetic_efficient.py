@@ -112,7 +112,9 @@ class RestclassEF:
         #   - einfach mod rechnen
         #   - ausgabe imemr positiv egal was reinkomme yo
         #   - was passiert mit x mod -y wenn der mod basis negativ ist
-        return value % self.mod
+        x = int(value // self.mod)
+        return value - x * self.mod
+        # return value % self.mod
 
     def __efficient_add(self, current_value, value_to_add):
         return current_value + self.__efficient_mod(value_to_add)
