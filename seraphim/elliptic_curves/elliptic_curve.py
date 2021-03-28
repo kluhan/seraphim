@@ -2,14 +2,13 @@ from copy import copy
 
 from seraphim.finite_fields.polynomial import PolynomialModulo, Polynomial
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
-from seraphim.elliptic_curves.elliptic_curve_point import EllipticCurvePoint
-from seraphim.elliptic_curves.elliptic_curve_point import EllipticCurvePointProjective
+from seraphim.elliptic_curves.elliptic_curve_point import CurvePoint, AffineCurvePoint, ProjectiveCurvePoint
 from seraphim.finite_fields.finite_field_element import FFE
 from seraphim.finite_fields.finite_field import FF
 
 
 class EllipticCurve:
-    def __init__(self, curve, mod, generator, projective=False):
+    def __init__(self, curve, mod, generator, projective=True):
         # eine liste von elementen x = [1,2,3,4] wenn x[-1] wird letztes element ausgegeben
         polynom = Polynomial(curve)
         finite_field = FF(polynom.degree(), mod)
@@ -20,12 +19,12 @@ class EllipticCurve:
 
     def getPoint(self, x, y=None):
         if self.projective:
-            return EllipticCurvePointProjective(self, x, y, 1)
+            return ProjectiveCurvePoint(self, x, y, 1)
         else:
-            return EllipticCurvePoint(self, x, y)
+            return AffineCurvePoint(self, x, y)
 
     def getGenerator(self):
         if self.projective:
-            return EllipticCurvePointProjective(self, self.generator)
+            return ProjectiveCurvePoint(self, self.generator)
         else:
-            return EllipticCurvePoint(self, self.generator)
+            return AffineCurvePoint(self, self.generator)
