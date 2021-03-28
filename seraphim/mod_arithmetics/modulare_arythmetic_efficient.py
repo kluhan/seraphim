@@ -153,10 +153,10 @@ class RestclassEF:
         check_normal_div = current_value % value_to_div
         # print("test: ", test)
         if check_normal_div == 0:
-            return self.__efficient_mod(int(current_value / value_to_div))
+            return int(current_value / value_to_div)
         if value_to_div == 1:
-            return self.__efficient_mod(current_value)
-        inv_value_to_div = get_inverse(self.mod, value_to_div, current_value)
+            return current_value
+        inv_value_to_div = int(get_inverse(self.mod, value_to_div, current_value))
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 

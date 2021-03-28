@@ -89,7 +89,7 @@ def __extended_euclid(base, value_to_inverse, current_value):
 
     if rest == invers:
         logging.error(
-            "ERROR - CANNOT DO %s/%s mod %s | UNDEFINED INVERSE FOR mod: %s, Value: %s",
+            "ERROR - CANNOT DO %s/%s mod %s | UNDEFINED INVERSE 234124 FOR mod: %s, Value: %s",
             current_value,
             value_to_inverse,
             base,

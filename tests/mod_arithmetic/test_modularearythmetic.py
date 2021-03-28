@@ -2,7 +2,7 @@ from seraphim.mod_arithmetics.modulare_arythmetic import Restclass
 
 
 class TestModulareArythmetic:
-    def test_Restclassef_add(self):
+    def test_Restclass_add(self):
         restclass = Restclass(5, 13)
         restclass_res = restclass + 4
         assert restclass_res.current_value == 2

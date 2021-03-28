@@ -173,14 +173,6 @@ class Polynomial(object):
         poly_copy.differentiate()
         return poly_copy
 
-    # def calculate(self, x):
-    #    ret = 0
-
-    #    for n, a in enumerate(self.coefficients):
-    #        ret += a * x ** n
-
-    #    return ret
-
 
 class PolynomialModulo(Polynomial):
     def __init__(self, coefficients, p):

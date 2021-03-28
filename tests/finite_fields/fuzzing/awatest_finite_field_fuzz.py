@@ -1,10 +1,3 @@
-import sys
-import atheris
-from tests.mod_arithmetic.test_bigNumbers import TestBigNumbers
-from tests.mod_arithmetic.test_modularearythmetic_eff import TestModulareArythmeticEF
-from tests.mod_arithmetic.test_modularearythmetic import TestModulareArythmetic
-
-
 def Test_bigNumbers_fuzzing():
     args = sys.argv
     args.append("-runs=1000")
