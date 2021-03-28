@@ -9,7 +9,7 @@ from seraphim.finite_fields.finite_field_element import FFE
 class TestFiniteFieldElement:
     @pytest.fixture
     def ff(self):
-        return FF(17, 6)
+        return FF(6, 17)
 
     @pytest.fixture
     def ffe1(self, ff):

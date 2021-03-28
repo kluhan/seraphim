@@ -9,7 +9,7 @@ from seraphim.util.extended_euclidean import InversionError
 class TestBigNumbers:
     @pytest.fixture
     def size(self):
-        return 2 ** 14
+        return 2 ** 12
 
     def test_restclass_add(self, size):
         try:
