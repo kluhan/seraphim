@@ -1,3 +1,4 @@
+import json 
 from copy import copy
 from seraphim.finite_fields.polynomial import PolynomialModulo, Polynomial
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
@@ -21,11 +22,11 @@ class EllipticCurvePoint:
         # (p.x,p.y) + (q.x, p.y) = (r.x, r.y)
 
         if p.inf and not q.inf:
-            print(str(p) + "+" + str(q) + "=" + str(q)) 
+            #print(str(p) + "+" + str(q) + "=" + str(q)) 
             return q
 
         if not p.inf and q.inf:
-            print(str(p) + "+" + str(q) + "=" + str(p)) 
+            #print(str(p) + "+" + str(q) + "=" + str(p)) 
             return p 
 
         if p == q:
@@ -33,7 +34,7 @@ class EllipticCurvePoint:
 
         else:    
             if int(p.x) == int(q.x):
-                print(str(p) + "+" + str(q) + "= INF")
+                #print(str(p) + "+" + str(q) + "= INF")
                 return EllipticCurvePoint(p.ellipticCurve, 0, 0, True) 
             slope = (p.y - q.y)/(p.x - q.x)
 
@@ -41,11 +42,11 @@ class EllipticCurvePoint:
         result_y = (slope * (p.x - result_x)) - p.y
 
         result = EllipticCurvePoint(p.ellipticCurve, result_x, result_y)
-        print(str(p) + "+" + str(q) + "=" +str(result))
+        #print(str(p) + "+" + str(q) + "=" +str(result))
         return result
 
     def __mul__(point, factor):
-        print(str(point) + "*" + str(factor))
+        #print(str(point) + "*" + str(factor))
 
         factor_bin = str(bin(factor))[3:]
         result = copy(point)
@@ -68,3 +69,16 @@ class EllipticCurvePoint:
         else:
             return "(" + str(self.x) + ", " + str(self.y) + ")"
 
+    def serialize(self):
+        elliptic_curve_point_dict = {
+            "x": self.x.current_value,
+            "y": self.y.current_value,
+            "inf": self.inf,
+        }
+
+        return json.dumps(elliptic_curve_point_dict)
+
+    @classmethod
+    def deserialize(cls, curve, serialized):
+        elliptic_curve_point_dict = json.loads(serialized)
+        return cls(curve, elliptic_curve_point_dict['x'], y=elliptic_curve_point_dict['y'], inf=elliptic_curve_point_dict['inf'])
