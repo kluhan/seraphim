@@ -130,15 +130,10 @@ class RestclassEF:
         return self.__efficient_ge(self.current_value, value_to_compare)
 
     def __efficient_mod(self, value):
-        # toDo self made
-        #   - einfach mod rechnen
-        #   - ausgabe imemr positiv egal was reinkomme yo
-        #   - was passiert mit x mod -y wenn der mod basis negativ ist
         if isinstance(value, RestclassEF):
             value = value.current_value
         x = int(value // self.mod)
         return value - x * self.mod
-        # return value % self.mod
 
     def __efficient_add(self, current_value, value_to_add):
         return current_value + self.__efficient_mod(value_to_add)

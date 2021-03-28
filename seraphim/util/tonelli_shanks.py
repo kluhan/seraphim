@@ -2,20 +2,21 @@ from seraphim.util.legendre_symbol import legendre_symbol
 
 # https://gist.github.com/nakov/60d62bdf4067ea72b7832ce9f71ae079
 
+
 def tonelli_shanks(a, p):
 
-    """ Find a quadratic residue (mod p) of 'a'. p
-        must be an odd prime.
-        Solve the congruence of the form:
-            x^2 = a (mod p)
-        And returns x. Note that p - x is also a root.
-        0 is returned is no square root exists for
-        these a and p.
-        The Tonelli-Shanks algorithm is used (except
-        for some simple cases in which the solution
-        is known from an identity). This algorithm
-        runs in polynomial time (unless the
-        generalized Riemann hypothesis is false).
+    """Find a quadratic residue (mod p) of 'a'. p
+    must be an odd prime.
+    Solve the congruence of the form:
+        x^2 = a (mod p)
+    And returns x. Note that p - x is also a root.
+    0 is returned is no square root exists for
+    these a and p.
+    The Tonelli-Shanks algorithm is used (except
+    for some simple cases in which the solution
+    is known from an identity). This algorithm
+    runs in polynomial time (unless the
+    generalized Riemann hypothesis is false).
     """
     # Simple cases
     #
