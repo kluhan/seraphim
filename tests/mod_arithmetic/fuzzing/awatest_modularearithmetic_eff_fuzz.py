@@ -32,8 +32,9 @@ def TestOneInput(data):
     base = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
     value = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
     var = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
-    test = TestModulareArythmeticEF()
-    test.test_restclass_add(base, value, var)
+    test_restclass_add(base, value, var)
+    # test = TestModulareArythmeticEF()
+    # test.test_restclass_add(base, value, var)
 
 
 atheris.Setup(sys.argv, TestOneInput)
