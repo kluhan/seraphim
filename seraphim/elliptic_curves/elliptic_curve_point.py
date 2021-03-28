@@ -1,4 +1,4 @@
-import json 
+import json
 from copy import copy
 from seraphim.finite_fields.polynomial import PolynomialModulo, Polynomial
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
@@ -94,62 +94,74 @@ class EllipticCurvePointProjective(EllipticCurvePoint):
     def __copy__(self):
         return EllipticCurvePointProjective(self.ellipticCurve, self.x, self.y)
 
-    def __add__(p, q):
-        if p == q:
-            if p.y == 0:
-                return EllipticCurvePointProjective(p.ellipticCurve, 0, inf=True)
+
+    def __add__(self, other):
+
+        if self.x == 0:
+            return other
+        elif other.x == 0:
+            return self
+        
+        t0 = self.y * other.z
+        t1 = other.y * self.z
+        u0 = self.x * other.z
+        u1 = other.x * self.z
+
+        if u0 == u1:
+            if t0 == t1:
+                return self.double()
             else:
-                W = ( p.ellipticCurve.curve.getLinear() * (p.z ** 2) ) + ( 3 * (p.x ** 2) )
-                S = p.y * p.z
-                B = p.x * p.y * S
-                H = W ** 2 - 8 * B
-                x_new = 2 * H * S
-                y_new = W * ( 4 * B - H) - 8 * p.y ** 2 * S ** 2
-                z_new = 8 * S ** 3 
-
-                return EllipticCurvePointProjective(p.ellipticCurve, x_new, y=y_new, z=z_new)
-
-        else:    
-            U1 = q.y * p.z
-            U2 = p.y * q.z
-            V1 = q.x * p.z
-            V2 = p.x * q.z
-
-            if(V1 == V2):
-                if(U1 != U2):
-                    return EllipticCurvePointProjective(p.ellipticCurve, 0, inf=True)
-                else:
-                    return p + p 
-            U = U1 - U2
-            V = V1 - V2
-            W = p.z * q.z 
-            A = U ** 2 * W - V ** 3 - 2 * V ** 2 * V2
-            x_new = V * A
-            y_new = U * ( V ** 2 * V2 - A) - V ** 3 * U2
-            z_new = V ** 3 * W
-
-            return EllipticCurvePointProjective(p.ellipticCurve, x_new, y=y_new, z=z_new)
-
-
-
+                return EllipticCurvePointProjective(self.ellipticCurve, 0, inf=True)
+        else:
+            t = t0 - t1
+            u = u0 - u1
+            u2 = u * u
+            v = self.z * other.z
+            w = t * t * v - u2 * (u0 + u1)
+            u3 = u * u2
+            rx = u * w
+            ry = t * (u0 * u2 - w) - t0 * u3
+            rz = u3 * v
+            
+            return EllipticCurvePointProjective(self.ellipticCurve, rx, y=ry, z=rz)
+    
+    
+    def double(self):
+        if self.x == 0 or self.y == 0:
+            return EllipticCurvePointProjective(self.ellipticCurve, 0, inf=True)
+        else:
+            t = self.x * self.x * 3 + self.ellipticCurve.curve.getLinear() * self.z * self.z
+            u = self.y * self.z * 2
+            v = u * self.x * self.y * 2
+            w = t * t - v * 2
+            rx = u * w
+            ry = t * (v - w) - u * u * self.y * self.y * 2
+            rz = u * u * u
+            return EllipticCurvePointProjective(self.ellipticCurve, rx, y=ry, z=rz)
 
     def __mul__(point, factor):
-        #print(str(point) + "*" + str(factor))
-
-        factor_bin = str(bin(factor))[3:]
-        result = copy(point)
-
-        for i in factor_bin:
-            result += result
-            if i == "1":
-                result += point
+        if not isinstance(factor, int):
+            raise TypeError("Expected integer")
+        if factor < 0:
+            return -point * -n
+        result = EllipticCurvePointProjective(point.ellipticCurve, 0, 0, 0)
+        temp = point
+        while factor != 0:
+            if factor & 1 != 0:
+                result += temp
+            temp = temp.double()
+            factor >>= 1
         return result
 
     def __eq__(self, other):
-        return super().__eq__(other) and self.z == other.z
-
+        if self.x or other.x:
+            return self.x and other.x
+        else:
+            return (self.x * other.z, self.y * other.z ) == (other.x * self.z, other.y * self.z)
+    
     def __ne__(self, other):
-        return super().__ne__(other) or self.z != other.z
+        return not (self == other)
+
 
     def __repr__(self):
         if self.inf:

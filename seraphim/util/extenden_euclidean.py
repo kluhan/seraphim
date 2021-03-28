@@ -39,6 +39,9 @@ def get_inverse(base, value_to_inverse):
 ## input auf gültigkeit prüfen/ plausibilty (zahlen dürfen nur aus N sein!)
 def __extended_euclid(base, value_to_inverse):
 
+    if(value_to_inverse == 1):
+        return 1
+
     # init to get first step in Euclid from the vlaues
     q = int(base / value_to_inverse)
     if q < 0:
@@ -70,7 +73,7 @@ def __extended_euclid(base, value_to_inverse):
         a = rest
 
         q = int(result / a)
-        #if q < 0:
+        # if q < 0:
         #    q = 0
 
         rest = result - (q * a)
