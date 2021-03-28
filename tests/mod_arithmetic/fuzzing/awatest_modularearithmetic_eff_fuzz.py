@@ -1,21 +1,6 @@
 import sys
 import atheris
-from mod import Mod
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import ModIsZeroError
-from tests.mod_arithmetic.test_modularearythmetic_eff import TestModulareArythmeticEF
-
-
-def test_restclass_add(base, value, var):
-    try:
-        restclass = RestclassEF(value, base)
-        x = Mod(value, base)
-        restclass_res = restclass + var
-        x = x + var
-        print(restclass_res.current_value == x)
-        assert restclass_res.current_value == x
-    except ModIsZeroError:
-        assert True
+from tests.mod_arithmetic.test_bigNumbers import TestBigNumbers
 
 
 def TestOneInput(data):
@@ -28,14 +13,16 @@ def TestOneInput(data):
       data: Bytestring coming from the fuzzing engine.
     """
     fdp = atheris.FuzzedDataProvider(data)
+    size = fdp.ConsumeIntInRange(1, (2 ** 10))
+    test124 = TestBigNumbers()
+    test124.test_restclass_add(size)
+    test124.test_restclass_sub(size)
+    test124.test_restclass_mul(size)
+    test124.test_restclass_pow(size)
+    test124.test_restclass_truediv(size)
 
-    base = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
-    value = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
-    var = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
-    test_restclass_add(base, value, var)
-    # test = TestModulareArythmeticEF()
-    # test.test_restclass_add(base, value, var)
 
-
-atheris.Setup(sys.argv, TestOneInput)
+args = sys.argv
+args.append("-runs=1000")
+atheris.Setup(args, TestOneInput)
 atheris.Fuzz()

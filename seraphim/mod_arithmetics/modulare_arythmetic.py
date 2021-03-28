@@ -1,4 +1,4 @@
-from seraphim.util.extenden_euclidean import get_inverse
+from seraphim.util.extended_euclidean import get_inverse
 
 
 class Restclass:
@@ -27,7 +27,7 @@ class Restclass:
         return Restclass(self.base, new_res)
 
     def __truediv__(self, value_to_div):
-        inv_value = get_inverse(self.base, value_to_div)
+        inv_value = get_inverse(self.base, value_to_div, self.current_value)
         new_res = (inv_value * self.current_value) % self.base
         return Restclass(self.base, new_res)
 
