@@ -12,5 +12,5 @@ class ZModP(list):
             self.append(RestclassEF(i, p))
 
 
-zmodp = ZModP(17)
-print(zmodp)
+# zmodp = ZModP(17)
+# print(zmodp)
