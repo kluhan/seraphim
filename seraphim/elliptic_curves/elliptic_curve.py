@@ -9,7 +9,6 @@ from seraphim.finite_fields.finite_field import FF
 
 class EllipticCurve:
     def __init__(self, curve, mod, generator, projective=True):
-        # eine liste von elementen x = [1,2,3,4] wenn x[-1] wird letztes element ausgegeben
         polynom = Polynomial(curve)
         finite_field = FF(polynom.degree(), mod)
 

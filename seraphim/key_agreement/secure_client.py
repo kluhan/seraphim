@@ -47,6 +47,7 @@ class SecureClient(threading.Thread):
             print("     agreed on domain-parameter: %sFAILD%s" % (Fore.RED, Fore.RESET))
 
         keyAgreement = KeyAgreement(domain)
+        print("     compute local_point: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET))
         local_key = keyAgreement.compute_local_key()
         self.send(local_key)
         if self.receive() == local_key:
@@ -58,11 +59,13 @@ class SecureClient(threading.Thread):
         self.send(foreign_key)
         print("     received foreign_key: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET))
 
-        shared_key = keyAgreement.compute_shared_key(foreign_key)
+        
         print(
-            "     established shared_key: %sSUCCESSFUL%s\n" % (Fore.GREEN, Fore.RESET)
+            "     established shared_key: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET)
         )
-        print("Shared key is <%s%s%s>\n" % (Fore.YELLOW, shared_key, Fore.RESET))
+        shared_key = keyAgreement.compute_shared_key(foreign_key)
+        
+        print("\nShared key is <%s%s%s>\n" % (Fore.CYAN, shared_key, Fore.RESET))
 
         while True:
 
