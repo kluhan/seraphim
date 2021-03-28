@@ -95,14 +95,12 @@ class RestclassEF:
                 self.current_value, value_to_div.current_value
             )
         else:
-            new_value = self.__efficient_division(
-                self.current_value, value_to_div)
+            new_value = self.__efficient_division(self.current_value, value_to_div)
         new_res = self.__efficient_mod(new_value)
         return RestclassEF(new_res, self.mod)
-    
+
     def __rdiv__(self, value_to_div):
         self.__div__(value_to_div)
-
 
     def __truediv__(self, value_to_div):
         if isinstance(value_to_div, RestclassEF):
@@ -110,8 +108,7 @@ class RestclassEF:
                 self.current_value, value_to_div.current_value
             )
         else:
-            new_value = self.__efficient_division(
-                self.current_value, value_to_div)
+            new_value = self.__efficient_division(self.current_value, value_to_div)
         new_res = self.__efficient_mod(new_value)
         return RestclassEF(new_res, self.mod)
 

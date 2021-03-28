@@ -145,7 +145,7 @@ class Polynomial(object):
         poly_copy.differentiate()
         return poly_copy
 
-    #def calculate(self, x):
+    # def calculate(self, x):
     #    ret = 0
 
     #    for n, a in enumerate(self.coefficients):
@@ -154,12 +154,9 @@ class Polynomial(object):
     #    return ret
 
 
-
 class PolynomialModulo(Polynomial):
     def __init__(self, coefficients, p):
         super().__init__(coefficients)
-        #self.p = p
+        # self.p = p
         for i in range(len(coefficients)):
             self.coefficients[i] = RestclassEF(coefficients[i], p)
-
-   

@@ -39,7 +39,7 @@ def get_inverse(base, value_to_inverse):
 ## input auf gültigkeit prüfen/ plausibilty (zahlen dürfen nur aus N sein!)
 def __extended_euclid(base, value_to_inverse):
 
-    if(value_to_inverse == 1):
+    if value_to_inverse == 1:
         return 1
 
     # init to get first step in Euclid from the vlaues
