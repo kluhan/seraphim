@@ -81,30 +81,71 @@ class Polynomial(object):
         ret = ret.replace("+-", "-")
         return ret
 
-    # https://github.com/Glank/Galois
-    def __divmod__(self, other):
-        remainder = copy.deepcopy(self)
-        zero = self._zero_()
-        p_zero = Polynomial([zero])
-        one = other.coefficients[-1] / other.coefficients[-1]
-        if other == Polynomial([one]):
-            return (self, Polynomial([zero]))
-        x = Polynomial([zero, one])
-        quotient = Polynomial([zero])
-        while remainder != p_zero and remainder.degree() >= other.degree():
-            r_lead = remainder.coefficients[-1]
-            o_lead = other.coefficients[-1]
-            q_part = Polynomial([r_lead / o_lead])
-            q_deg = remainder.degree() - other.degree()
-            if q_deg > 0:
-                q_part *= x ** q_deg
-            r_sub = other * q_part
-            remainder -= r_sub
-            quotient += q_part
-        return (quotient, remainder)
+    ## https://github.com/Glank/Galois
+    # def __divmod__(self, other):
+    #    remainder = copy.deepcopy(self)
+    #    zero = self._zero_()
+    #    p_zero = Polynomial([zero])
+    #    one = other.coefficients[-1] / other.coefficients[-1]
+    #    if other == Polynomial([one]):
+    #        return (self, Polynomial([zero]))
+    #    x = Polynomial([zero, one])
+    #    quotient = Polynomial([zero])
+    #    while remainder != p_zero and remainder.degree() >= other.degree():
+    #        r_lead = remainder.coefficients[-1]
+    #        o_lead = other.coefficients[-1]
+    #        q_part = Polynomial([r_lead / o_lead])
+    #        q_deg = remainder.degree() - other.degree()
+    #        if q_deg > 0:
+    #            q_part *= x ** q_deg
+    #        r_sub = other * q_part
+    #        remainder -= r_sub
+    #        quotient += q_part
+    #    return (quotient, remainder)
+
+    def poly_ext_synth_division(self, poly, divisor):
+        dividend = poly.coefficients
+        dividend.reverse()
+        rev_div = divisor.coefficients
+        rev_div.reverse()
+
+        out = list(dividend)
+        normalizer = rev_div[0]
+
+        for i in range(len(dividend) - (len(rev_div) - 1)):
+            out[i] /= normalizer
+            coef = out[i]
+
+            if coef != 0:
+                for j in range(1, len(rev_div)):
+                    out[i + j] += -rev_div[j] * coef
+
+        separator = -(len(rev_div) - 1)
+
+        coef_quotient = out[:separator]
+        coef_remainder = out[separator:]
+
+        coef_quotient.reverse()
+        coef_remainder.reverse()
+
+        if len(coef_quotient) is 0:
+            coef_quotient.append(0)
+
+        if len(coef_remainder) is 0:
+            coef_remainder.append(0)
+
+        return Polynomial(coef_quotient), Polynomial(coef_remainder)
 
     def __mod__(self, other):
-        return divmod(self, other)[1]
+        return self.poly_ext_synth_division(self, other)[1]
+
+    def __truediv__(self, other):
+        return self.poly_ext_synth_division(self, other)[0]
+
+    def __floordiv__(self, other):
+        div, mod = self.poly_ext_synth_division(self, other)
+        assert mod == Polynomial([self._zero_()])
+        return div
 
     def __eq__(self, other):
         if self.degree() != other.degree():
@@ -117,32 +158,18 @@ class Polynomial(object):
     def __ne__(self, other):
         return not self == other
 
-    # ToDo Div austasuchen gegen polysynth
-    def __div__(self, other):
-        div, mod = divmod(self, other)
-        assert mod == Polynomial([self._zero_()])
-        return div
-
-    def __truediv__(self, other):
-        div, mod = divmod(self, other)
-        assert mod == Polynomial([self._zero_()])
-        return div
-
-    def __floordiv__(self, other):
-        return divmod(self, other)[0]
-
     def __repr__(self):
         return str(self)
 
     def differentiate(self):
         """Funktion zur Differenzierung des Polynoms"""
         for i in range(1, len(self.coefficients)):
-            self.coeff[i - 1] = i * self.coeff[i]
-        del self.coeff[-1]
+            self.coefficients[i - 1] = i * self.coefficients[i]
+        del self.coefficients[-1]
 
     def deriviate(self):
         """Kopiere Polynom und gib Ableitung mittels differentiate() zurück"""
-        poly_copy = Polynomial(self.coeff[:])
+        poly_copy = Polynomial(self.coefficients[:])
         poly_copy.differentiate()
         return poly_copy
 
