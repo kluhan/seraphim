@@ -71,7 +71,7 @@ class TestModulareArythmeticEF:
             assert True
 
     def test_restclass_lt(self, value, mod):
-        restclass = RestclassEF(value - (mod - 1), mod)
+        restclass = RestclassEF(value - 1, mod)
         x = Mod(value, mod)
         restclass_res = restclass.current_value < x
         assert restclass_res
@@ -83,7 +83,7 @@ class TestModulareArythmeticEF:
         assert restclass_res
 
     def test_restclass_leLess(self, value, mod):
-        restclass = RestclassEF(value - (mod - 1), mod)
+        restclass = RestclassEF(value - 1, mod)
         x = Mod(value, mod)
         restclass_res = restclass.current_value <= x
         assert restclass_res
@@ -114,6 +114,6 @@ class TestModulareArythmeticEF:
 
     def test_restclass_geGreater(self, value, mod):
         restclass = RestclassEF(value, mod)
-        x = Mod(value - (mod - 1), mod)
+        x = Mod(value - 1, mod)
         restclass_res = restclass.current_value >= x
         assert restclass_res
