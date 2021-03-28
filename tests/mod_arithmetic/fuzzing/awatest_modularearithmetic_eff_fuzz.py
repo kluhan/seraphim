@@ -2,14 +2,20 @@ import sys
 import atheris
 from mod import Mod
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import ModIsZeroError
+from tests.mod_arithmetic.test_modularearythmetic_eff import TestModulareArythmeticEF
 
 
 def test_restclass_add(base, value, var):
-    restclass = RestclassEF(value, base)
-    x = Mod(value, base)
-    restclass_res = restclass + var
-    x = x + var
-    assert restclass_res.current_value == x
+    try:
+        restclass = RestclassEF(value, base)
+        x = Mod(value, base)
+        restclass_res = restclass + var
+        x = x + var
+        print(restclass_res.current_value == x)
+        assert restclass_res.current_value == x
+    except ModIsZeroError:
+        assert True
 
 
 def TestOneInput(data):
@@ -26,7 +32,8 @@ def TestOneInput(data):
     base = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
     value = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
     var = fdp.ConsumeIntInRange(-(2 ** 12), (2 ** 12))
-    test_restclass_add(base, value, var)
+    test = TestModulareArythmeticEF()
+    test.test_restclass_add(base, value, var)
 
 
 atheris.Setup(sys.argv, TestOneInput)
