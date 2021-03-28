@@ -131,3 +131,5 @@ dmypy.json
 .vscode/
 
 crash*
+slow-unit*
+timeout*

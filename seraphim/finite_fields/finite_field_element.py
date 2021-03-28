@@ -17,7 +17,6 @@ class FFE(object):
     def __init__(self, field, param):
         """Field vom Typ FF, param kann verschiedene Typen annehmen: Polynomial, list[]"""
         self.field = field
-        print(f"SOME PARAMS YO {type(param)}")
 
         if isinstance(param, Polynomial):
             self.poly = PolynomialModulo(param.coefficients, self.field.p)

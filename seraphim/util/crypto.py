@@ -1,5 +1,4 @@
 from seraphim.elliptic_curves.elliptic_curve import EllipticCurve
-from seraphim.elliptic_curves.elliptic_curve_point import EllipticCurvePoint
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 curve = [

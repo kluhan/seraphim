@@ -1,6 +1,6 @@
 # Python Module RestclassEF
 from seraphim.util.power_helper import square_power_calc
-from seraphim.util.extenden_euclidean import get_inverse
+from seraphim.util.extended_euclidean import get_inverse
 from seraphim.util.tonelli_shanks import tonelli_shanks
 
 
@@ -18,28 +18,21 @@ class ModIsZeroError(Error):
 
 class RestclassEF:
     def __init__(self, current_value, mod):
-        try:
-            if isinstance(current_value, RestclassEF):
-                current_value = current_value.current_value
+        # try:
+        if isinstance(current_value, RestclassEF):
+            current_value = current_value.current_value
 
-            if mod == 0:
-                raise ModIsZeroError
-            if (
-                not str(current_value).replace("-", "").isnumeric()
-                or not str(mod).replace("-", "").isnumeric()
-            ):
-                raise ValueNotInZError
-            self.mod = mod
-            self.current_value = current_value % mod
-        except ModIsZeroError:
-            print("Given mod was 0, try a mod value that is not 0")
-            raise
-
-        except ValueNotInZError:
-            print("Some initialize value was not in Z, try using only integer.")
-            print(f"current_value was: {current_value}")
-            print(f"mod was: {mod}")
-            raise
+        if mod == 0:
+            raise ModIsZeroError
+        if (
+            not str(current_value).replace("-", "").isnumeric()
+            or not str(mod).replace("-", "").isnumeric()
+        ):
+            print(current_value)
+            print(mod)
+            raise ValueNotInZError
+        self.mod = mod
+        self.current_value = current_value % mod
 
     def __int__(self):
         return self.current_value
@@ -157,7 +150,13 @@ class RestclassEF:
         return current_value * self.__efficient_mod(value_to_mul)
 
     def __efficient_division(self, current_value, value_to_div):
-        inv_value_to_div = get_inverse(self.mod, value_to_div)
+        check_normal_div = current_value % value_to_div
+        # print("test: ", test)
+        if check_normal_div == 0:
+            return int(current_value / value_to_div)
+        if value_to_div == 1:
+            return current_value
+        inv_value_to_div = int(get_inverse(self.mod, value_to_div, current_value))
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 

@@ -22,7 +22,7 @@ class InversionError(Error):
         self.message = message
 
 
-def get_inverse(base, value_to_inverse):
+def get_inverse(base, value_to_inverse, current_value):
     """Searches the Inverse of an given value_to_inverse.
 
     Args:
@@ -32,24 +32,30 @@ def get_inverse(base, value_to_inverse):
     Returns:
         Returns the inverse to value_to_inverse
     """
-    return __extended_euclid(base, value_to_inverse)
+    return __extended_euclid(base, value_to_inverse, current_value)
 
 
 ## ungültige werte checken ! -1, 3,5 !
 ## input auf gültigkeit prüfen/ plausibilty (zahlen dürfen nur aus N sein!)
-def __extended_euclid(base, value_to_inverse):
+def __extended_euclid(base, value_to_inverse, current_value):
+    value_to_inverse = value_to_inverse % base
 
     # init to get first step in Euclid from the vlaues
     q = int(base / value_to_inverse)
-    if q < 0:
-        q = 0
+    # if q < 0:
+    #    q = 0
     a = value_to_inverse
     rest = base - (q * a)
     result = base
 
     if rest == 0:
         logging.error(
-            "ERROR - UNDEFINED INVERSE Base: %s, Value: %s", base, value_to_inverse
+            "ERROR - CANNOT DO %s/%s mod %s | UNDEFINED INVERSE FOR mod: %s, Value: %s",
+            current_value,
+            value_to_inverse,
+            base,
+            base,
+            value_to_inverse,
         )
         raise InversionError(
             "r = base-(q*a)",
@@ -83,11 +89,16 @@ def __extended_euclid(base, value_to_inverse):
 
     if rest == invers:
         logging.error(
-            f"ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}"
+            "ERROR - CANNOT DO %s/%s mod %s | UNDEFINED INVERSE 234124 FOR mod: %s, Value: %s",
+            current_value,
+            value_to_inverse,
+            base,
+            base,
+            value_to_inverse,
         )
         raise InversionError(
             "r = base-(q*a)",
-            f"ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}",
+            "ERROR - UNDEFINED INVERSE Base: {base}, Value: {value_to_inverse}",
         )
 
     return invers
