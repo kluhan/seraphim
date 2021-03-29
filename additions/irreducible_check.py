@@ -9,6 +9,60 @@
 """
 import logging
 import helper
+import itertools
+
+
+def factor(n):
+    # Faktorisierung einer Zahl n
+    i = 0
+    factors = []
+    for i in range(1, n + 1):
+        if n % i == 0:
+            factors.append(i)
+
+    return factors
+
+
+def prime_factor(n):
+    # Primfaktorzerlegung einer Zahl n
+    i = 2
+    factors = []
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+            factors.append(i)
+
+    if n > 1:
+        factors.append(n)
+    return factors
+
+
+# rekursive Implementierung von HCF
+def hcf(x, y):
+    """Highest common factor"""
+    if y == 0:
+        return x
+    else:
+        return hcf(y, x % y)
+
+
+def is_polynomial_coprime(polynomial):
+    """Überprüft, ob ein Polynom teilerfremd (coprime) ist"""
+    non_zero_polynomial = [
+        i for i in polynomial.coefficients if i != 0
+    ]  # Nullen würden Ergebnis von HCF verfälschen
+
+    if polynomial.degree() == 0:
+        return True
+
+    for x, y in itertools.combinations(non_zero_polynomial, 2):
+        if hcf(x, y) != 1:
+            return False
+
+    return True
+
 
 # Quelle: https://rms.unibuc.ro/bulletin/pdf/53-3/perron.pdf
 def is_irreducible_perron(polynomial):

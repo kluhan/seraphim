@@ -24,10 +24,10 @@ class FiniteFieldElementFuzzing:
         coefficients1 = []
         coefficients2 = []
 
-        for i in range(size1):
+        for _ in range(size1):
             coefficients1.append(fdp.ConsumeIntInRange(-(2 ** 10), (2 ** 10)))
 
-        for i in range(size2):
+        for _ in range(size2):
             coefficients2.append(fdp.ConsumeIntInRange(-(2 ** 10), (2 ** 10)))
 
         poly1 = Polynomial(coefficients1)
@@ -68,10 +68,10 @@ class FiniteFieldElementFuzzing:
         size2 = fdp.ConsumeIntInRange(2, (2 ** 10))
         coefficients1 = []
         coefficients2 = []
-        for i in range(size1):
+        for _ in range(size1):
             coefficients1.append(fdp.ConsumeIntInRange(-(2 ** 10), (2 ** 10)))
 
-        for i in range(size2):
+        for _ in range(size2):
             coefficients2.append(fdp.ConsumeIntInRange(-(2 ** 10), (2 ** 10)))
 
         poly1 = Polynomial(coefficients1)

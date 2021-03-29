@@ -2,9 +2,6 @@ from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.finite_fields.polynomial import PolynomialModulo
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
-# from seraphim.finite_fields.poly_division import poly_ext_synth_division
-# from seraphim.finite_fields.helper import is_reducible
-
 
 class FFE(object):
     """
@@ -25,8 +22,7 @@ class FFE(object):
         elif isinstance(param, list):
             self.poly = PolynomialModulo(param, self.field.p)
         else:
-            print("AN DIESE STELLE MUSS EINE TOLLE FEHLERMELDUNG HIN")
-            assert ()
+            raise TypeError
 
         # while is_reducible(self.poly, self.field.p):
         #    self.poly = poly_ext_synth_division(self.poly, field.generator)

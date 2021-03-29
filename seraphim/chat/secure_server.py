@@ -1,12 +1,10 @@
 import socket
-import sys
-import time
 import threading
 import json
 
 from colorama import init, Fore
 
-from seraphim.key_agreement.quote import Quote
+from seraphim.chat.quote import Quote
 from seraphim.key_agreement.key_agreement import KeyAgreement
 
 
@@ -19,6 +17,7 @@ class SecureServer(threading.Thread):
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.sock.bind(("", 0))
         self.sock.listen(1)
+        self.connection = None
 
     def connect(self, host, port):
         self.sock.connect((host, port))
@@ -32,7 +31,6 @@ class SecureServer(threading.Thread):
     def run(self):
         init()
         quote = Quote()
-        test = quote.get()
 
         print(
             "Listening on <%s%s:%d%s>\n"
@@ -58,25 +56,24 @@ class SecureServer(threading.Thread):
         print(
             "     agreed on domain-parameter: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET)
         )
-    
+
         foreign_key = self.receive()
         self.send(foreign_key)
-        
+
         keyAgreement = KeyAgreement(domain)
         print("     received foreign_point: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET))
         print("     compute local_point: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET))
         local_key = keyAgreement.compute_local_key()
-        
+
         self.send(local_key)
         if self.receive() == local_key:
-            print("     submitted local_point: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET))
+            print(
+                "     submitted local_point: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET)
+            )
         else:
             print("     submitted local_point: %sFAILD%s" % (Fore.RED, Fore.RESET))
 
-        
-        print(
-            "     established shared_key: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET)
-        )
+        print("     established shared_key: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET))
         shared_key = keyAgreement.compute_shared_key(foreign_key)
 
         print("\nShared key is <%s%s%s>\n" % (Fore.CYAN, shared_key, Fore.RESET))

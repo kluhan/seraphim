@@ -1,29 +1,30 @@
 from itertools import cycle
-import socket
-import sys
-import time
-import threading
 import secrets
 import json
 
-from colorama import init, Fore
+from colorama import Fore
 
 from seraphim.elliptic_curves.elliptic_curve import EllipticCurve
-from seraphim.elliptic_curves.elliptic_curve_point import CurvePoint, ProjectiveCurvePoint, AffineCurvePoint
+from seraphim.elliptic_curves.elliptic_curve_point import (
+    ProjectiveCurvePoint,
+    AffineCurvePoint,
+)
 
 
 class KeyAgreement:
-    def __init__(self, domain, style='projective', v=True):
-
+    def __init__(self, domain, style="projective", v=True):
+        self.secret = None
+        self.local_key = None
+        self.shared_key = None
         self.verbose = v
 
         with open("domain_parameter.json") as domain_parameter_file:
             domain_parameter = json.load(domain_parameter_file)[domain]
 
-        if (style == 'projective'):
+        if style == "projective":
             self.CurvePoint = ProjectiveCurvePoint
             style = True
-        if (style == 'affine'):
+        if style == "affine":
             self.CurvePoint = AffineCurvePoint
             style = False
 
@@ -31,8 +32,11 @@ class KeyAgreement:
         self.mod = domain_parameter["mod"]
         self.generator = domain_parameter["generator"]
 
-        if self.verbose: self._print_init()
-        self.elliptic_curve = EllipticCurve(self.curve, self.mod, self.generator, projective=style)
+        if self.verbose:
+            self._print_init()
+        self.elliptic_curve = EllipticCurve(
+            self.curve, self.mod, self.generator, projective=style
+        )
 
     def compute_local_key(self):
         self.secret = secrets.randbelow(self.mod)
@@ -40,7 +44,8 @@ class KeyAgreement:
 
         self.local_key = start_point * self.secret
 
-        if self.verbose: self._print_local_key()
+        if self.verbose:
+            self._print_local_key()
         return self.local_key.serialize()
 
     def compute_shared_key(self, foreign_point):
@@ -48,7 +53,8 @@ class KeyAgreement:
         secret_point = foreign_point * self.secret
         self.shared_key = secret_point.to_secrect()
 
-        if self.verbose: self._print_shared_key(foreign_point, secret_point)
+        if self.verbose:
+            self._print_shared_key(foreign_point, secret_point)
         return self.shared_key
 
     def encrypt(self, msg):
@@ -64,45 +70,28 @@ class KeyAgreement:
 
     def _print_init(self):
 
-        print(
-            "       curve: <%s%s%s>"
-            % (Fore.YELLOW, str(self.curve), Fore.RESET)
-        )
-        print(
-            "       mod: <%s%d%s>"
-            % (Fore.YELLOW, self.mod, Fore.RESET)
-        )
-        print(
-            "       generator: <%s%d%s>"
-            % (Fore.YELLOW, self.generator, Fore.RESET)
-        )
+        print("       curve: <%s%s%s>" % (Fore.YELLOW, str(self.curve), Fore.RESET))
+        print("       mod: <%s%d%s>" % (Fore.YELLOW, self.mod, Fore.RESET))
+        print("       generator: <%s%d%s>" % (Fore.YELLOW, self.generator, Fore.RESET))
 
     def _print_local_key(self):
 
+        print("       secret: <%s%d%s>" % (Fore.YELLOW, self.secret, Fore.RESET))
         print(
-            "       secret: <%s%d%s>"
-            % (Fore.YELLOW, self.secret, Fore.RESET)
+            "       local_key.x: <%s%d%s>" % (Fore.YELLOW, self.local_key.x, Fore.RESET)
         )
         print(
-            "       local_key.x: <%s%d%s>"
-            % (Fore.YELLOW, self.local_key.x, Fore.RESET)
-        )
-        print(
-            "       local_key.y: <%s%d%s>"
-            % (Fore.YELLOW, self.local_key.y, Fore.RESET)
+            "       local_key.y: <%s%d%s>" % (Fore.YELLOW, self.local_key.y, Fore.RESET)
         )
 
-        if (isinstance(self.local_key, ProjectiveCurvePoint)):
+        if isinstance(self.local_key, ProjectiveCurvePoint):
             print(
                 "       local_key.z: <%s%d%s>"
                 % (Fore.YELLOW, self.local_key.z, Fore.RESET)
             )
 
     def _print_shared_key(self, foreign_point, secret_point):
-        print(
-            "       secret: <%s%d%s>"
-            % (Fore.YELLOW, self.secret, Fore.RESET)
-        )
+        print("       secret: <%s%d%s>" % (Fore.YELLOW, self.secret, Fore.RESET))
 
         print(
             "       foreign_point.x: <%s%d%s>"
@@ -113,7 +102,7 @@ class KeyAgreement:
             % (Fore.YELLOW, foreign_point.y, Fore.RESET)
         )
 
-        if (isinstance(foreign_point, ProjectiveCurvePoint)):
+        if isinstance(foreign_point, ProjectiveCurvePoint):
             print(
                 "       foreign_point.z: <%s%d%s>"
                 % (Fore.YELLOW, foreign_point.z, Fore.RESET)
@@ -128,13 +117,15 @@ class KeyAgreement:
             % (Fore.YELLOW, secret_point.y, Fore.RESET)
         )
 
-        if (isinstance(secret_point, ProjectiveCurvePoint)):
+        if isinstance(secret_point, ProjectiveCurvePoint):
             print(
                 "       secret_point.z: <%s%d%s>"
                 % (Fore.YELLOW, secret_point.z, Fore.RESET)
             )
-        
+
         print(
-            "       secret_key: <%s%d%s>"
-            % (Fore.YELLOW, self.shared_key, Fore.RESET)
+            "       secret_key: <%s%d%s>" % (Fore.YELLOW, self.shared_key, Fore.RESET)
         )
+
+
+test = KeyAgreement("curve25519")

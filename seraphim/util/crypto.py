@@ -1,7 +1,4 @@
-import json
-
 from seraphim.elliptic_curves.elliptic_curve import EllipticCurve
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 curve = [
     0,  # Constant
@@ -19,6 +16,7 @@ curve = [
 # ]
 
 mod = (2 ** 255) - 19
+generator = 9
 
 test_curve = EllipticCurve(curve, mod, generator, projective=True)
 mod = (2 ** 255) - 19
@@ -28,7 +26,6 @@ mod = (2 ** 255) - 19
 alice_sec = 546132165436135461321687631035789
 bob_sec = 1965413236532196874131687691687
 
-generator = 9
 
 alice_sec = 2425967623052370772757633156976982469681
 bob_sec = 6075380529345458860144577398704761614649
@@ -40,7 +37,6 @@ print("generator" + str(alice_point))
 
 alice_point = alice_point * alice_sec
 bob_point = bob_point * bob_sec
-
 
 
 print("Alice_Point: " + str(alice_point))

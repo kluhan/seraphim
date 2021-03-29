@@ -1,5 +1,5 @@
 from random import randrange
-from seraphim.finite_fields.helper import get_minimal_polynomial
+from seraphim.util.polynom_helper import get_minimal_polynomial
 from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.finite_fields.finite_field_element import FFE
 
@@ -38,7 +38,7 @@ class FF(object):
 def generate_random_polynomial(degree, maxint=100, mod=True):
     coef = []
 
-    for i in range(0, degree):
+    for _ in range(0, degree):
         val = randrange(maxint)
         if mod is True:
             coef.append(val % degree)

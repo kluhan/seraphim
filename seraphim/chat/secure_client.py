@@ -1,10 +1,8 @@
 import socket
-import sys
-import time
 import threading
 import json
 
-from colorama import init, Fore
+from colorama import Fore
 
 from seraphim.key_agreement.key_agreement import KeyAgreement
 
@@ -24,7 +22,6 @@ class SecureClient(threading.Thread):
         return self.sock.recv(4096).decode("utf-8")
 
     def run(self):
-        
 
         host = input("Target Hostname:\n>>%s" % (Fore.BLUE))
         print(Fore.RESET)
@@ -32,9 +29,6 @@ class SecureClient(threading.Thread):
         print(Fore.RESET)
         domain = "curve25519"
         domain = input("Domain:\n>>%s" % (Fore.BLUE))
-
-        
-
 
         print("Connecting with <%s%s:%d%s>" % (Fore.BLUE, host, port, Fore.RESET))
         self.connect(host, port)
@@ -64,12 +58,9 @@ class SecureClient(threading.Thread):
         self.send(foreign_key)
         print("     received foreign_key: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET))
 
-        
-        print(
-            "     established shared_key: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET)
-        )
+        print("     established shared_key: %sSUCCESSFUL%s" % (Fore.GREEN, Fore.RESET))
         shared_key = keyAgreement.compute_shared_key(foreign_key)
-        
+
         print("\nShared key is <%s%s%s>\n" % (Fore.CYAN, shared_key, Fore.RESET))
 
         while True:

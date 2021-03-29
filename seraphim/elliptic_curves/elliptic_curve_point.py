@@ -1,7 +1,5 @@
 import json
 from copy import copy
-from seraphim.finite_fields.polynomial import PolynomialModulo, Polynomial
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 
 
 class CurvePoint:
@@ -28,6 +26,7 @@ class CurvePoint:
 
     def to_secrect(self):
         raise NotImplementedError("subclasses must override to_secret()!")
+
     @classmethod
     def deserialize(cls, curve, serialized):
         raise NotImplementedError("subclasses must override deserialize()!")
@@ -35,6 +34,7 @@ class CurvePoint:
     @classmethod
     def point_at_infinity(cls):
         raise NotImplementedError("subclasses must override point_at_infinity()!")
+
 
 class AffineCurvePoint(CurvePoint):
     def __init__(self, curve, x, y=None, inf=False):
@@ -51,8 +51,8 @@ class AffineCurvePoint(CurvePoint):
 
         return AffineCurvePoint(self.curve, self.x, self.y)
 
-    def __add__(p, q):
-
+    def __add__(self, q):
+        p = self
         if p.inf and not q.inf:
             return q
 
@@ -73,8 +73,8 @@ class AffineCurvePoint(CurvePoint):
 
         return AffineCurvePoint(p.curve, result_x, result_y)
 
-    def __mul__(point, factor):
-
+    def __mul__(self, factor):
+        point = self
         factor_bin = str(bin(factor))[3:]
         result = copy(point)
 
@@ -89,8 +89,7 @@ class AffineCurvePoint(CurvePoint):
         return int(self.x) == int(other.x) and int(self.y) == int(other.y)
 
     def __ne__(self, other):
-
-        return not (self == other)
+        return not self == other
 
     def __repr__(self):
         if self.inf:
@@ -115,9 +114,9 @@ class AffineCurvePoint(CurvePoint):
         affine_curve_point_dict = json.loads(serialized)
         return cls(
             curve,
-            elliptic_curve_point_dict["x"],
-            y=elliptic_curve_point_dict["y"],
-            inf=elliptic_curve_point_dict["inf"],
+            affine_curve_point_dict["x"],
+            y=affine_curve_point_dict["y"],
+            inf=affine_curve_point_dict["inf"],
         )
 
     @classmethod
@@ -174,10 +173,7 @@ class ProjectiveCurvePoint(CurvePoint):
         if self.x == 0 or self.y == 0:
             return ProjectiveCurvePoint.point_at_infinity()
         else:
-            t = (
-                self.x * self.x * 3
-                + self.curve.curve.getLinear() * self.z * self.z
-            )
+            t = self.x * self.x * 3 + self.curve.curve.getLinear() * self.z * self.z
             u = self.y * self.z * 2
             v = u * self.x * self.y * 2
             w = t * t - v * 2
@@ -186,9 +182,10 @@ class ProjectiveCurvePoint(CurvePoint):
             rz = u * u * u
             return ProjectiveCurvePoint(self.curve, rx, y=ry, z=rz)
 
-    def __mul__(point, factor):
+    def __mul__(self, factor):
+        point = self
         result = ProjectiveCurvePoint.point_at_infinity()
-        
+
         double_bucket = point
         while factor != 0:
             if factor & 1 != 0:
@@ -223,7 +220,7 @@ class ProjectiveCurvePoint(CurvePoint):
             "inf": self.inf,
         }
 
-        return json.dumps(projective_curve_point_dict )
+        return json.dumps(projective_curve_point_dict)
 
     def to_secrect(self):
         return self.x / self.z
@@ -238,7 +235,7 @@ class ProjectiveCurvePoint(CurvePoint):
             z=1,
             inf=projective_curve_point_dict["inf"],
         )
-    
+
     @classmethod
     def point_at_infinity(cls):
         return ProjectiveCurvePoint(None, 0, 0, 0, inf=True)
