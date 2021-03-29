@@ -13,13 +13,9 @@ from seraphim.elliptic_curves.elliptic_curve_point import CurvePoint, Projective
 
 
 class KeyAgreement:
-    def __init__(self, domain, style='projective', v=True):
-        with open("domain_parameter.json") as domain_parameter_file:
-            domain_parameter = json.load(domain_parameter_file)[domain]
+    def __init__(self, curve, mod, generator, style='projective', v=True):
+
         self.verbose = v
-        self.curve = domain_parameter["curve"]
-        self.mod = domain_parameter["p"]
-        self.generator = domain_parameter["generator"]
 
         if (style == 'projective'):
             self.CurvePoint = ProjectiveCurvePoint
@@ -28,9 +24,12 @@ class KeyAgreement:
             self.CurvePoint = AffineCurvePoint
             style = False
 
+        self.curve = curve
+        self.mod = mod
+        self.generator = generator
+
         if self.verbose: self._print_init()
         self.elliptic_curve = EllipticCurve(self.curve, self.mod, self.generator, projective=style)
-
 
     def compute_local_key(self):
         self.secret = secrets.randbelow(self.mod)
