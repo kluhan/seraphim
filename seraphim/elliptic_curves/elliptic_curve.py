@@ -38,7 +38,6 @@ class EllipticCurve:
             "mod": self.curve.field.p,
             "generator": self.generator
         }
-
         return json.dumps(curve_dict)
 
     @classmethod
