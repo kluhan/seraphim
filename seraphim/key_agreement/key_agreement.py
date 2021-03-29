@@ -18,6 +18,7 @@ class KeyAgreement:
         self.secret = None
         self.local_key = None
         self.shared_key = None
+        self.CurvePoint = None
         self.verbose = v
 
         with importlib.resources.open_text('seraphim.resources','domain_parameter.json') as domain_parameter_file:
