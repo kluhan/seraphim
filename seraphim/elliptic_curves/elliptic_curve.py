@@ -1,10 +1,13 @@
 from copy import copy
+from secrets import randbelow
+import json
 
 from seraphim.finite_fields.polynomial import PolynomialModulo, Polynomial
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
 from seraphim.elliptic_curves.elliptic_curve_point import CurvePoint, AffineCurvePoint, ProjectiveCurvePoint
 from seraphim.finite_fields.finite_field_element import FFE
 from seraphim.finite_fields.finite_field import FF
+from seraphim.prime_generator.primeGenerator import prime_generator
 
 
 class EllipticCurve:
@@ -27,3 +30,39 @@ class EllipticCurve:
             return ProjectiveCurvePoint(self, self.generator)
         else:
             return AffineCurvePoint(self, self.generator)
+
+
+    def serialize(self):
+        curve_dict = {
+            "curve": list(map(lambda x: x.current_value, self.curve.poly.coefficients)),
+            "mod": self.curve.field.p,
+            "generator": self.generator
+        }
+        return json.dumps(curve_dict)
+
+    @classmethod
+    def deserialize(cls, serialized):
+        curve_dict = json.loads(serialized)
+        return cls(
+            curve_dict["curve"],
+            curve_dict["mod"],
+            curve_dict["generator"],
+        )
+
+    @classmethod
+    def randomize(cls, generator_size, exponent_size, prime_size):
+        generator = randbelow(generator_size)
+
+        curve = []
+        for ex in range(4):
+            curve.append(randbelow(exponent_size))
+
+        prime_gen = prime_generator(prime_size)
+        mod = next(prime_gen)
+        
+        return cls(
+            curve,
+            mod,
+            generator
+        )
+

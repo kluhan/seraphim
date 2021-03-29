@@ -24,12 +24,17 @@ class SecureClient(threading.Thread):
         return self.sock.recv(4096).decode("utf-8")
 
     def run(self):
-        domain = "curve25519"
+        
 
         host = input("Target Hostname:\n>>%s" % (Fore.BLUE))
         print(Fore.RESET)
         port = int(input("Target Port:\n>>%s" % (Fore.BLUE)))
         print(Fore.RESET)
+        domain = "curve25519"
+        domain = input("Domain:\n>>%s" % (Fore.BLUE))
+
+        
+
 
         print("Connecting with <%s%s:%d%s>" % (Fore.BLUE, host, port, Fore.RESET))
         self.connect(host, port)
