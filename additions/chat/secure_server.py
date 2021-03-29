@@ -4,7 +4,7 @@ import json
 
 from colorama import init, Fore
 
-from seraphim.chat.quote import Quote
+from additions.chat.quote import Quote
 from seraphim.key_agreement.key_agreement import KeyAgreement
 
 

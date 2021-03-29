@@ -1,9 +1,9 @@
 from seraphim.finite_fields.polynomial import Polynomial
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEfficient
 
 
 def is_reducible(polynom, p):
-    intmod = RestclassEF(1, p).get_representative()
+    intmod = RestclassEfficient(1, p).get_representative()
 
     zmodx = [Polynomial(list(reversed(x))) for x in intmod]
 

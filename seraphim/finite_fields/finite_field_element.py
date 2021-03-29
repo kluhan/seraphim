@@ -1,18 +1,18 @@
 from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.finite_fields.polynomial import PolynomialModulo
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEfficient
 
 
-class FFE(object):
+class FiniteFieldElement(object):
     """
     Klasse für die Elemente in einem Endlichen Körper.
-    Es wird der zugehörige endliche Körper der Klasse FF mitgegeben und ein Polynom.
+    Es wird der zugehörige endliche Körper der Klasse FiniteField mitgegeben und ein Polynom.
     Das Polynom kann entweder eine Liste an Koeffizienten sein oder vom Typ Polynomial.
     Das Polynom muss irreduzibel sein, es wird hier nicht überprüft, ob es sich um ein irreduzibles Polynom handelt.
     """
 
     def __init__(self, field, param):
-        """Field vom Typ FF, param kann verschiedene Typen annehmen: Polynomial, list[]"""
+        """Field vom Typ FiniteField, param kann verschiedene Typen annehmen: Polynomial, list[]"""
         self.field = field
 
         if isinstance(param, Polynomial):
@@ -35,18 +35,18 @@ class FFE(object):
 
     def __add__(self, other):
         assert self.field == other.field
-        return FFE(self.field, self.poly + other.poly)
+        return FiniteFieldElement(self.field, self.poly + other.poly)
 
     def __sub__(self, other):
         assert self.field == other.field
-        return FFE(self.field, self.poly - other.poly)
+        return FiniteFieldElement(self.field, self.poly - other.poly)
 
     def __mul__(self, other):
         assert self.field == other.field
-        return FFE(self.field, self.poly * other.poly)
+        return FiniteFieldElement(self.field, self.poly * other.poly)
 
     def calculate(self, x):
-        ret = RestclassEF(0, self.field.p)
+        ret = RestclassEfficient(0, self.field.p)
 
         for n, a in enumerate(self.poly.coefficients):
             ret += a * x ** n

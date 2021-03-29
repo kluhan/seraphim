@@ -1,5 +1,5 @@
 import copy
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEfficient
 
 
 class Polynomial(object):
@@ -128,10 +128,10 @@ class Polynomial(object):
         coef_quotient.reverse()
         coef_remainder.reverse()
 
-        if len(coef_quotient) is 0:
+        if len(coef_quotient) == 0:
             coef_quotient.append(0)
 
-        if len(coef_remainder) is 0:
+        if len(coef_remainder) == 0:
             coef_remainder.append(0)
 
         return Polynomial(coef_quotient), Polynomial(coef_remainder)
@@ -179,4 +179,4 @@ class PolynomialModulo(Polynomial):
         super().__init__(coefficients)
         # self.p = p
         for i in range(len(coefficients)):
-            self.coefficients[i] = RestclassEF(coefficients[i], p)
+            self.coefficients[i] = RestclassEfficient(coefficients[i], p)

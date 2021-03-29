@@ -1,7 +1,7 @@
 from secrets import randbits
 import pytest
 from mod import Mod
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEF
+from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEfficient
 from seraphim.mod_arithmetics.modulare_arythmetic_efficient import ModIsZeroError
 from seraphim.util.extended_euclidean import InversionError
 
@@ -16,7 +16,7 @@ class TestBigNumbers:
             base = randbits(size)
             value = randbits(size)
             add = randbits(size)
-            restclass = RestclassEF(value, base)
+            restclass = RestclassEfficient(value, base)
             x = Mod(value, base)
             restclass_res = restclass + add
             x = x + add
@@ -29,7 +29,7 @@ class TestBigNumbers:
             base = randbits(size)
             value = randbits(size)
             sub = randbits(size)
-            restclass = RestclassEF(value, base)
+            restclass = RestclassEfficient(value, base)
             x = Mod(value, base)
             restclass_res = restclass - sub
             x = x - sub
@@ -42,7 +42,7 @@ class TestBigNumbers:
             base = randbits(size)
             value = randbits(size)
             faktor = randbits(size)
-            restclass = RestclassEF(value, base)
+            restclass = RestclassEfficient(value, base)
             x = Mod(value, base)
             restclass_res = restclass * faktor
             x = x * faktor
@@ -55,7 +55,7 @@ class TestBigNumbers:
             base = randbits(size)
             value = randbits(size)
             power = randbits(size)
-            restclass = RestclassEF(value, base)
+            restclass = RestclassEfficient(value, base)
             x = Mod(value, base)
             restclass_res = restclass ** power
             x = x ** power
@@ -68,7 +68,7 @@ class TestBigNumbers:
             base = randbits(size)
             value = randbits(size)
             divider = randbits(size)
-            restclass = RestclassEF(value, base)
+            restclass = RestclassEfficient(value, base)
             x = Mod(value, base)
             restclass_res = restclass / divider
             y = x // divider
@@ -85,19 +85,19 @@ class TestBigNumbers:
 
     # def test_restclass_truediv_broke(self):
     #    base = (2 ** 255) - 19  # randbits(self.size)
-    #    py = RestclassEF(
+    #    py = RestclassEfficient(
     #        15278678023448118676834786174010220272456316670626470910400599246085451685119,
     #        base,
     #    )
-    #    px = RestclassEF(
+    #    px = RestclassEfficient(
     #        10890237597772915387920653252329006178118543546739258841018607706089588874959,
     #        base,
     #    )
-    #    qy = RestclassEF(
+    #    qy = RestclassEfficient(
     #        14781619447589544791020593568409986887264606134616475288964881837755586237401,
     #        base,
     #    )
-    #    qx = RestclassEF(9, base)
+    #    qx = RestclassEfficient(9, base)
     #    x = (py - qy) / (px - qx)
 
 

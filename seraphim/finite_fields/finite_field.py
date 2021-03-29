@@ -1,10 +1,10 @@
 from random import randrange
 from seraphim.util.polynom_helper import get_minimal_polynomial
 from seraphim.finite_fields.polynomial import Polynomial
-from seraphim.finite_fields.finite_field_element import FFE
+from seraphim.finite_fields.finite_field_element import FiniteFieldElement
 
 
-class FF(object):
+class FiniteField(object):
     """
     Endlicher Körper der Form p^n. Optional kann ein Generator-Polynom übergeben werden.
     p ist der Modulus und die Charakteristik des Körpers und muss eine Primzahl sein
@@ -24,7 +24,7 @@ class FF(object):
             self.generator = get_minimal_polynomial(p, n)
 
     def __str__(self):
-        s = "FF(%s^%s)" % (str(self.p), str(self.n))
+        s = "FiniteField(%s^%s)" % (str(self.p), str(self.n))
         s += "\n"
         s += "Erzeugerpolynom:\n"
         s += str(self.generator)
@@ -32,7 +32,7 @@ class FF(object):
 
     def generate_random_element(self, maxint=100):
         polynom = generate_random_polynomial(self.n, maxint)
-        return FFE(self, polynom)
+        return FiniteFieldElement(self, polynom)
 
 
 def generate_random_polynomial(degree, maxint=100, mod=True):

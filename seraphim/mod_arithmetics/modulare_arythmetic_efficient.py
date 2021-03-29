@@ -1,5 +1,4 @@
-# Python Module RestclassEF
-from seraphim.util.power_helper import square_power_calc
+# Python Module RestclassEfficient
 from seraphim.util.extended_euclidean import get_inverse
 from seraphim.util.tonelli_shanks import tonelli_shanks
 
@@ -16,10 +15,10 @@ class ModIsZeroError(Error):
     """Raised when the input value is too small"""
 
 
-class RestclassEF:
+class RestclassEfficient:
     def __init__(self, current_value, mod):
         # try:
-        if isinstance(current_value, RestclassEF):
+        if isinstance(current_value, RestclassEfficient):
             current_value = current_value.current_value
 
         if mod == 0:
@@ -38,75 +37,75 @@ class RestclassEF:
         return self.current_value
 
     def __add__(self, value_to_add):
-        if isinstance(value_to_add, RestclassEF):
+        if isinstance(value_to_add, RestclassEfficient):
             new_value = self.__efficient_add(
                 self.current_value, value_to_add.current_value
             )
         else:
             new_value = self.__efficient_add(self.current_value, value_to_add)
-        return RestclassEF(new_value, self.mod)
+        return RestclassEfficient(new_value, self.mod)
 
     def __radd__(self, value_to_add):
         new_value = self.__efficient_add(value_to_add, self.current_value)
-        return RestclassEF(new_value, self.mod)
+        return RestclassEfficient(new_value, self.mod)
 
     def __sub__(self, value_to_sub):
-        if isinstance(value_to_sub, RestclassEF):
+        if isinstance(value_to_sub, RestclassEfficient):
             new_value = self.__efficient_sub(
                 self.current_value, value_to_sub.current_value
             )
         else:
             new_value = self.__efficient_sub(self.current_value, value_to_sub)
-        return RestclassEF(new_value, self.mod)
+        return RestclassEfficient(new_value, self.mod)
 
     def __rsub__(self, value_to_sub):
         new_value = self.__efficient_sub(value_to_sub, self.current_value)
-        return RestclassEF(new_value, self.mod)
+        return RestclassEfficient(new_value, self.mod)
 
     def __mul__(self, value_to_mul):
-        if isinstance(value_to_mul, RestclassEF):
+        if isinstance(value_to_mul, RestclassEfficient):
             new_value = self.__efficient_mul(
                 self.current_value, value_to_mul.current_value
             )
         else:
             new_value = self.__efficient_mul(self.current_value, value_to_mul)
-        return RestclassEF(new_value, self.mod)
+        return RestclassEfficient(new_value, self.mod)
 
     def __rmul__(self, value_to_mul):
         return self.__mul__(value_to_mul)
 
     def __pow__(self, value_to_pow):
-        if isinstance(value_to_pow, RestclassEF):
+        if isinstance(value_to_pow, RestclassEfficient):
             new_value = self.__efficient_pow(
                 self.current_value, value_to_pow.current_value
             )
         else:
             new_value = self.__efficient_pow(self.current_value, value_to_pow)
         new_res = self.__efficient_mod(new_value)
-        return RestclassEF(new_res, self.mod)
+        return RestclassEfficient(new_res, self.mod)
 
     def __div__(self, value_to_div):
-        if isinstance(value_to_div, RestclassEF):
+        if isinstance(value_to_div, RestclassEfficient):
             new_value = self.__efficient_division(
                 self.current_value, value_to_div.current_value
             )
         else:
             new_value = self.__efficient_division(self.current_value, value_to_div)
         new_res = self.__efficient_mod(new_value)
-        return RestclassEF(new_res, self.mod)
+        return RestclassEfficient(new_res, self.mod)
 
     def __rdiv__(self, value_to_div):
         self.__div__(value_to_div)
 
     def __truediv__(self, value_to_div):
-        if isinstance(value_to_div, RestclassEF):
+        if isinstance(value_to_div, RestclassEfficient):
             new_value = self.__efficient_division(
                 self.current_value, value_to_div.current_value
             )
         else:
             new_value = self.__efficient_division(self.current_value, value_to_div)
         new_res = self.__efficient_mod(new_value)
-        return RestclassEF(new_res, self.mod)
+        return RestclassEfficient(new_res, self.mod)
 
     def __neg__(self):
         return self.mod - self.current_value
@@ -130,7 +129,7 @@ class RestclassEF:
         return self.__efficient_ge(self.current_value, value_to_compare)
 
     def __efficient_mod(self, value):
-        if isinstance(value, RestclassEF):
+        if isinstance(value, RestclassEfficient):
             value = value.current_value
         x = int(value // self.mod)
         return value - x * self.mod
@@ -155,8 +154,21 @@ class RestclassEF:
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 
+    def __square_power_calc(self, base, power, modulus):
+        power_bin = str(bin(power))[2:]
+        res = 1
+        for i in power_bin:
+            if i == "1":
+                res = res ** 2
+                res = res * base
+            else:
+                res = res ** 2
+            res = res % modulus
+
+        return res
+
     def __efficient_pow(self, current_value, value_to_pow):
-        return square_power_calc(current_value, value_to_pow, self.mod)
+        return self.__square_power_calc(current_value, value_to_pow, self.mod)
 
     def __efficient_lt(self, current_value, value_to_compare):
         return current_value < self.__efficient_mod(value_to_compare)
@@ -180,7 +192,7 @@ class RestclassEF:
         return str(self.current_value)
 
     def sqrt(self):
-        return RestclassEF(tonelli_shanks(self.current_value, self.mod), self.mod)
+        return RestclassEfficient(tonelli_shanks(self.current_value, self.mod), self.mod)
 
     def get_representative(self):
         x = []

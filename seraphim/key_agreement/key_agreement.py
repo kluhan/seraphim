@@ -1,6 +1,8 @@
 from itertools import cycle
 import secrets
 import json
+import resource
+import importlib.resources
 
 from colorama import Fore
 
@@ -18,7 +20,7 @@ class KeyAgreement:
         self.shared_key = None
         self.verbose = v
 
-        with open("domain_parameter.json") as domain_parameter_file:
+        with importlib.resources.open_text('seraphim.resources','domain_parameter.json') as domain_parameter_file:
             domain_parameter = json.load(domain_parameter_file)[domain]
 
         if style == "projective":
@@ -126,6 +128,3 @@ class KeyAgreement:
         print(
             "       secret_key: <%s%d%s>" % (Fore.YELLOW, self.shared_key, Fore.RESET)
         )
-
-
-test = KeyAgreement("curve25519")

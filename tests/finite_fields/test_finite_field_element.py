@@ -2,24 +2,24 @@ import pytest
 import numpy as np
 
 from seraphim.finite_fields.polynomial import Polynomial
-from seraphim.finite_fields.finite_field import FF
-from seraphim.finite_fields.finite_field_element import FFE
+from seraphim.finite_fields.finite_field import FiniteField
+from seraphim.finite_fields.finite_field_element import FiniteFieldElement
 
 
 class TestFiniteFieldElement:
     @pytest.fixture
     def ff(self):
-        return FF(6, 17)
+        return FiniteField(6, 17)
 
     @pytest.fixture
     def ffe1(self, ff):
         poly1 = Polynomial([10, 15, 20, 25])
-        return FFE(ff, poly1)
+        return FiniteFieldElement(ff, poly1)
 
     @pytest.fixture
     def ffe2(self, ff):
         poly2 = Polynomial([7, 14, 21, 28])
-        return FFE(ff, poly2)
+        return FiniteFieldElement(ff, poly2)
 
     def test_finite_field_element_add(self, ffe1, ffe2):
         np_x = np.array(list(reversed(ffe1.poly.coefficients)))
@@ -48,8 +48,8 @@ class TestFiniteFieldElement:
 
 # asdfasdf = TestFiniteFieldElement()
 # poly1 = Polynomial([10, 15, 20, 25])
-# ff = FF(6, 17)
-# ffe1 = FFE(ff, poly1)
+# ff = FiniteField(6, 17)
+# ffe1 = FiniteFieldElement(ff, poly1)
 # poly2 = Polynomial([7, 14, 21, 28])
-# ffe2 = FFE(ff, poly2)
+# ffe2 = FiniteFieldElement(ff, poly2)
 # asdfasdf.test_finite_field_element_add(ffe1, ffe2)

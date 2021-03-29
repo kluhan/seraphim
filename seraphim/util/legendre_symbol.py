@@ -1,6 +1,5 @@
 # https://gist.github.com/nakov/60d62bdf4067ea72b7832ce9f71ae079
 
-
 def legendre_symbol(a, p):
     """Compute the Legendre symbol a|p using
     Euler's criterion. p is a prime, a is

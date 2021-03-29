@@ -3,8 +3,8 @@ import atheris
 from tests.finite_fields.test_finite_field_element import TestFiniteFieldElement
 from tests.finite_fields.test_polynomarithmetic import TestPolynomArithmetic
 from seraphim.finite_fields.polynomial import Polynomial
-from seraphim.finite_fields.finite_field import FF
-from seraphim.finite_fields.finite_field_element import FFE
+from seraphim.finite_fields.finite_field import FiniteField
+from seraphim.finite_fields.finite_field_element import FiniteFieldElement
 from seraphim.prime_generator.primeGenerator import prime_generator
 
 
@@ -63,7 +63,7 @@ class FiniteFieldElementFuzzing:
         # generate prime
         value = fdp.ConsumeIntInRange(1, (2 ** 10))
         prime = next(prime_generator(fdp.ConsumeIntInRange(3, (2 ** 10))))
-        ff = FF(value, prime)
+        ff = FiniteField(value, prime)
         size1 = fdp.ConsumeIntInRange(2, (2 ** 10))
         size2 = fdp.ConsumeIntInRange(2, (2 ** 10))
         coefficients1 = []
@@ -76,8 +76,8 @@ class FiniteFieldElementFuzzing:
 
         poly1 = Polynomial(coefficients1)
         poly2 = Polynomial(coefficients2)
-        ffe1 = FFE(ff, poly1)
-        ffe2 = FFE(ff, poly2)
+        ffe1 = FiniteFieldElement(ff, poly1)
+        ffe2 = FiniteFieldElement(ff, poly2)
         test124 = TestFiniteFieldElement()
         test124.test_finite_field_element_add(ffe1, ffe2)
         test124.test_finite_field_element_sub(ffe1, ffe2)

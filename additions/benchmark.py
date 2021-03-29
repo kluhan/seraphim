@@ -1,6 +1,8 @@
 import time
+
 from progress.bar import Bar
-from primeGenerator import prime_generator
+from seraphim.prime_generator.primeGenerator import prime_generator
+
 
 
 class Benchmark:
@@ -37,3 +39,6 @@ class Benchmark:
             print(
                 "\n------------------------------------------------------------------------------------------------"
             )
+
+
+Benchmark().run()

@@ -6,17 +6,17 @@ from seraphim.elliptic_curves.elliptic_curve_point import (
     AffineCurvePoint,
     ProjectiveCurvePoint,
 )
-from seraphim.finite_fields.finite_field_element import FFE
-from seraphim.finite_fields.finite_field import FF
+from seraphim.finite_fields.finite_field_element import FiniteFieldElement
+from seraphim.finite_fields.finite_field import FiniteField
 from seraphim.prime_generator.primeGenerator import prime_generator
 
 
 class EllipticCurve:
     def __init__(self, curve, mod, generator, projective=True):
         polynom = Polynomial(curve)
-        finite_field = FF(polynom.degree(), mod)
+        finite_field = FiniteField(polynom.degree(), mod)
 
-        self.curve = FFE(finite_field, polynom)
+        self.curve = FiniteFieldElement(finite_field, polynom)
         self.generator = generator
         self.projective = projective
 
@@ -31,23 +31,6 @@ class EllipticCurve:
             return ProjectiveCurvePoint(self, self.generator)
         else:
             return AffineCurvePoint(self, self.generator)
-
-    def serialize(self):
-        curve_dict = {
-            "curve": list(map(lambda x: x.current_value, self.curve.poly.coefficients)),
-            "mod": self.curve.field.p,
-            "generator": self.generator,
-        }
-        return json.dumps(curve_dict)
-
-    @classmethod
-    def deserialize(cls, serialized):
-        curve_dict = json.loads(serialized)
-        return cls(
-            curve_dict["curve"],
-            curve_dict["mod"],
-            curve_dict["generator"],
-        )
 
     @classmethod
     def randomize(cls, generator_size, exponent_size, prime_size):

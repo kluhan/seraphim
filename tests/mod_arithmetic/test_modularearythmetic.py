@@ -1,4 +1,4 @@
-from seraphim.mod_arithmetics.modulare_arythmetic import Restclass
+from additions.modulare_arythmetic import Restclass
 
 
 class TestModulareArythmetic:
