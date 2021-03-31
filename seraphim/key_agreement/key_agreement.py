@@ -13,16 +13,9 @@ from seraphim.elliptic_curves.elliptic_curve_point import (
 
 
 class KeyAgreement:
+    def __init__(self, domain="curve25519", style="projective", v=True):
     """Class for easy ecdh-key-exchange
     """
-
-    def __init__(self, domain, style="projective", v=True):
-        """
-        Args:
-            domain: Set of domain-parameter defined in domain_parameter.json
-            style: Definies if the projective or affine plane is used for point-arithmetics
-            v: Verbose-Mode
-        """
         self.secret = None
         self.local_key = None
         self.shared_key = None
