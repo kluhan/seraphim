@@ -71,8 +71,3 @@ class EllipticCurveFuzzing:
         prime_size = fdp.ConsumeIntInRange(3, 2 ** 8)
         test_test = TestRandomCurve()
         test_test.test_random_curve(generator_size, exponent_size, prime_size)
-
-
-# PrimeGeneratorFuzzing().test_random_curve_fuzzing()
-EllipticCurveFuzzing().test_point_arithmetic_projective_fuzzing()
-EllipticCurveFuzzing().test_point_arithmetic_affine_fuzzing()
