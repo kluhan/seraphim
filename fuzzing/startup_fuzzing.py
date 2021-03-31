@@ -5,7 +5,7 @@ from fuzzing.fuzz_finite_field_fuzz import FiniteFieldElementFuzzing
 
 
 # ModArithmeticFuzzing().test_bigNumbers_fuzzing()
-# ModArithmeticFuzzing().test_modularearythmetic_eff_fuzzing()
+# ModArithmeticFuzzing().test_modularearithmetic_eff_fuzzing()
 # PrimeGeneratorFuzzing().test_prime_generator_fuzzing()
 # FiniteFieldElementFuzzing().test_finite_field_fuzzing()
 # FiniteFieldElementFuzzing().test_polynomarithmetic_fuzzing()

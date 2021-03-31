@@ -1,7 +1,7 @@
 import sys
 import atheris
 from tests.mod_arithmetic.test_bigNumbers import TestBigNumbers
-from tests.mod_arithmetic.test_modularearythmetic_eff import TestModulareArythmeticEF
+from tests.mod_arithmetic.test_modularearithmetic_eff import TestModulareArithmeticEF
 
 
 class ModArithmeticFuzzing:
@@ -18,17 +18,17 @@ class ModArithmeticFuzzing:
         base = fdp.ConsumeIntInRange(1, (2 ** 10))
         value = fdp.ConsumeIntInRange(1, (2 ** 10))
         variable = fdp.ConsumeIntInRange(1, (2 ** 10))
-        TestModulareArythmeticEF().test_restclass_representative(base, value)
-        TestModulareArythmeticEF().test_restclass_add(base, value, variable)
-        TestModulareArythmeticEF().test_restclass_mul(base, value, variable)
-        TestModulareArythmeticEF().test_restclass_pow(base, value, variable)
-        TestModulareArythmeticEF().test_restclass_sub(base, value, variable)
-        TestModulareArythmeticEF().test_restclass_truediv(base, value, variable)
-        TestModulareArythmeticEF().test_restclass_eq(base, value)
-        TestModulareArythmeticEF().test_restclass_geEqual(base, value)
-        TestModulareArythmeticEF().test_restclass_leEqual(base, value)
+        TestModulareArithmeticEF().test_restclass_representative(base, value)
+        TestModulareArithmeticEF().test_restclass_add(base, value, variable)
+        TestModulareArithmeticEF().test_restclass_mul(base, value, variable)
+        TestModulareArithmeticEF().test_restclass_pow(base, value, variable)
+        TestModulareArithmeticEF().test_restclass_sub(base, value, variable)
+        TestModulareArithmeticEF().test_restclass_truediv(base, value, variable)
+        TestModulareArithmeticEF().test_restclass_eq(base, value)
+        TestModulareArithmeticEF().test_restclass_geEqual(base, value)
+        TestModulareArithmeticEF().test_restclass_leEqual(base, value)
 
-    def test_modularearythmetic_eff_fuzzing(self):
+    def test_modularearithmetic_eff_fuzzing(self):
         args = sys.argv
         args.append("-runs=10000")
         atheris.Setup(args, self.__setup_input_modular_arithmetic)
