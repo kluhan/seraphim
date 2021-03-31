@@ -1,8 +1,8 @@
 from secrets import randbits
 import pytest
 from mod import Mod
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEfficient
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import ModIsZeroError
+from seraphim.mod_arithmetics.modulare_arithmetic_efficient import RestclassEfficient
+from seraphim.mod_arithmetics.modulare_arithmetic_efficient import ModIsZeroError
 from seraphim.util.extended_euclidean import InversionError
 
 # 2 ** 14

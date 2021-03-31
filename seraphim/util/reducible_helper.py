@@ -1,5 +1,5 @@
 from seraphim.finite_fields.polynomial import Polynomial
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEfficient
+from seraphim.mod_arithmetics.modulare_arithmetic_efficient import RestclassEfficient
 
 
 def is_reducible(polynom, p):

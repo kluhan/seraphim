@@ -154,17 +154,49 @@ class RestclassEfficient:
         res = inv_value_to_div * current_value
         return self.__efficient_mod(res)
 
-    def __square_power_calc(self, base, power, modulus):
-        power_bin = str(bin(power))[2:]
+    # def __square_power_calc(self, base, power, modulus):
+    #     power_bin = str(bin(power))[2:]
+    #     res = 1
+    #     for i in power_bin:
+    #         if i == "1":
+    #             res = res ** 2
+    #             res = res * base
+    #         else:
+    #             res = res ** 2
+    #         res = res % modulus
+
+    #     return res
+
+    def __square_power_calc(self, base, exponent, modulus):
+        """
+        Method calculates and then returns the power of an exponentiation in a RestClass
+
+        Method to efficiently calculate the power with an exponent 
+        a to base b, because the usual calculation requires 
+        considerable processing power
+
+        Args:
+        base: base of the exponentiation
+        exponent: exponent of the exponentiation
+        modulus: Modulus of the Restclass
+        
+        Returns:
+        Returns the power of the base to the exponent
+        """
+        exponent_bin = str(bin(exponent))[2:] # Transform the exponent
+                                            #  into the binary 
+                                            #  representation
         res = 1
-        for i in power_bin:
-            if i == "1":
+        for i in exponent_bin:  # Iterate the algorithm for every bit
+            if i == "1":        # If the bit is a 1 square the current value 
+                                # and then multiply it with the base
                 res = res ** 2
                 res = res * base
-            else:
+            else:               # If the current bit is a 0, just square 
+                                # the current value
                 res = res ** 2
-            res = res % modulus
-
+            res = res % modulus # after each calculation, use the modulus
+                                # to reduce the size of the number
         return res
 
     def __efficient_pow(self, current_value, value_to_pow):

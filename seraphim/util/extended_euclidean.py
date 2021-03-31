@@ -31,19 +31,27 @@ def get_inverse(base, value_to_inverse, current_value):
     """
     return __extended_euclid(base, value_to_inverse, current_value)
 
-
-## ungültige werte checken ! -1, 3,5 !
-## input auf gültigkeit prüfen/ plausibilty (zahlen dürfen nur aus N sein!)
 def __extended_euclid(base, value_to_inverse, current_value):
-    value_to_inverse = value_to_inverse % base
+    """
+    Calculate Inverse Element to value_to_inverse or Raises Error, if not Possible
+    Iterate the extended Euclidean Algyrthm to find an Inverse element of the given Value
+    Args:
+        base: Mod base, for the inverse to check.
+        value_to_inverse: Value to check for inverse
+        current_value: Current Value given in teh division, only used to Improve errors
+    Returns:
+        Returns the inverse to value_to_inverse
+    """
 
+    value_to_inverse = value_to_inverse % base
     # init to get first step in Euclid from the vlaues
     q = int(base / value_to_inverse)
-    # if q < 0:
-    #    q = 0
     a = value_to_inverse
     rest = base - (q * a)
     result = base
+    # standard init for reverse euclid
+    x0 = 0
+    x1 = 1
 
     if rest == 0:
         logging.error(
@@ -63,21 +71,15 @@ def __extended_euclid(base, value_to_inverse, current_value):
             ),
         )
 
-    # standard init for reverse euclid
-    x0 = 0
-    x1 = 1
-
     # Eclid and reverse Euclid iterations
     while rest != 0:
-        # Reverse Euclid
+        # Reverse Euclid Calculation
         invers = (x0 - x1 * q) % base
 
-        # Euclid
+        # Calculate new Values to use in Reverse Euclid
         result = a
         a = rest
-
         q = int(result / a)
-
         rest = result - (q * a)
 
         # New Values for Reverse Euclid

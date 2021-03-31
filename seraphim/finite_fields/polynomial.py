@@ -1,5 +1,5 @@
 import copy
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEfficient
+from seraphim.mod_arithmetics.modulare_arithmetic_efficient import RestclassEfficient
 
 
 class Polynomial(object):

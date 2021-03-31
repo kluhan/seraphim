@@ -1,7 +1,7 @@
-from additions.modulare_arythmetic import Restclass
+from additions.modulare_arithmetic import Restclass
 
 
-class TestModulareArythmetic:
+class TestModulareArithmetic:
     def test_Restclass_add(self):
         restclass = Restclass(5, 13)
         restclass_res = restclass + 4

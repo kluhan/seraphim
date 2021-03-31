@@ -1,6 +1,6 @@
 from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.finite_fields.polynomial import PolynomialModulo
-from seraphim.mod_arithmetics.modulare_arythmetic_efficient import RestclassEfficient
+from seraphim.mod_arithmetics.modulare_arithmetic_efficient import RestclassEfficient
 
 
 class FiniteFieldElement(object):
