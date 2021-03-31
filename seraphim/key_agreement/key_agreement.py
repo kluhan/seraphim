@@ -13,7 +13,16 @@ from seraphim.elliptic_curves.elliptic_curve_point import (
 
 
 class KeyAgreement:
+    """Class for easy ecdh-key-exchange
+    """
+
     def __init__(self, domain, style="projective", v=True):
+        """
+        Args:
+            domain: Set of domain-parameter defined in domain_parameter.json
+            style: Definies if the projective or affine plane is used for point-arithmetics
+            v: Verbose-Mode
+        """
         self.secret = None
         self.local_key = None
         self.shared_key = None
@@ -43,6 +52,10 @@ class KeyAgreement:
         )
 
     def compute_local_key(self):
+        """
+        Computes a local key, which must be used by the partener as input of the compute_shared_key-function. 
+        The local key can be transtmited over an unsecure network without compromise the security
+        """
         self.secret = secrets.randbelow(self.mod)
         start_point = self.elliptic_curve.getGenerator()
 
@@ -53,6 +66,15 @@ class KeyAgreement:
         return self.local_key.serialize()
 
     def compute_shared_key(self, foreign_point):
+        """
+        Computes the shared_point of the ECDH
+
+        Args:
+            foreign_point: Local point transmited by the communication-partner
+
+        Returns:
+            Returns the shared key in an int-representation
+        """
         foreign_point = self.CurvePoint.deserialize(self.elliptic_curve, foreign_point)
         secret_point = foreign_point * self.secret
         self.shared_key = secret_point.to_secrect()
@@ -62,6 +84,15 @@ class KeyAgreement:
         return self.shared_key
 
     def encrypt(self, msg):
+        """
+        Encryptes an given message by applying a xor-cipher
+
+        Args:
+            msg: message to bee encryped
+
+        Returns:
+            Returns the encrypted message
+        """
         encrypted_msg = ""
 
         for msg_chunk, key in zip(msg, cycle(str(self.shared_key))):
@@ -70,6 +101,15 @@ class KeyAgreement:
         return encrypted_msg
 
     def decrypt(self, msg):
+        """
+        Decryptes an given message by applying a xor-cipher
+
+        Args:
+            msg: message to bee decryped
+
+        Returns:
+            Returns the decrypted message
+        """
         return self.encrypt(msg)
 
     def _print_init(self):

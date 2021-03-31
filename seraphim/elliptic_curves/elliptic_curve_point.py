@@ -124,6 +124,8 @@ class AffineCurvePoint(CurvePoint):
         return AffineCurvePoint(None, 0, 0, inf=True)
 
 
+
+#heavily inspired by https://www.nayuki.io/page/elliptic-curve-point-addition-in-projective-coordinates
 class ProjectiveCurvePoint(CurvePoint):
     def __init__(self, curve, x, y=None, z=1, inf=False):
         self.curve = curve
