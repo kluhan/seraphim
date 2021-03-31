@@ -35,6 +35,8 @@ def prime_generator(size, accuracy=10, mode=1):
         primalityTest = miller_rabin_reference.miller_rabin
 
     while True:
+        assert size > 2
+
         # generates n crypto-secure random bits
         random_number = randbits(size)
 

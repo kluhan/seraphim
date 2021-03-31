@@ -1,6 +1,4 @@
 from secrets import randbelow
-import json
-
 from seraphim.finite_fields.polynomial import Polynomial
 from seraphim.elliptic_curves.elliptic_curve_point import (
     AffineCurvePoint,

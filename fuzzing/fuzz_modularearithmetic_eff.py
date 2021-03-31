@@ -18,16 +18,15 @@ class ModArithmeticFuzzing:
         base = fdp.ConsumeIntInRange(1, (2 ** 10))
         value = fdp.ConsumeIntInRange(1, (2 ** 10))
         variable = fdp.ConsumeIntInRange(1, (2 ** 10))
-        test124 = TestModulareArythmeticEF()
-        test124.test_restclass_representative(base, value)
-        test124.test_restclass_add(base, value, variable)
-        test124.test_restclass_mul(base, value, variable)
-        test124.test_restclass_pow(base, value, variable)
-        test124.test_restclass_sub(base, value, variable)
-        test124.test_restclass_truediv(base, value, variable)
-        test124.test_restclass_eq(base, value)
-        test124.test_restclass_geEqual(base, value)
-        test124.test_restclass_leEqual(base, value)
+        TestModulareArythmeticEF().test_restclass_representative(base, value)
+        TestModulareArythmeticEF().test_restclass_add(base, value, variable)
+        TestModulareArythmeticEF().test_restclass_mul(base, value, variable)
+        TestModulareArythmeticEF().test_restclass_pow(base, value, variable)
+        TestModulareArythmeticEF().test_restclass_sub(base, value, variable)
+        TestModulareArythmeticEF().test_restclass_truediv(base, value, variable)
+        TestModulareArythmeticEF().test_restclass_eq(base, value)
+        TestModulareArythmeticEF().test_restclass_geEqual(base, value)
+        TestModulareArythmeticEF().test_restclass_leEqual(base, value)
 
     def test_modularearythmetic_eff_fuzzing(self):
         args = sys.argv
@@ -46,12 +45,11 @@ class ModArithmeticFuzzing:
         """
         fdp = atheris.FuzzedDataProvider(data)
         size = fdp.ConsumeIntInRange(1, (2 ** 10))
-        test124 = TestBigNumbers()
-        test124.test_restclass_add(size)
-        test124.test_restclass_sub(size)
-        test124.test_restclass_mul(size)
-        test124.test_restclass_pow(size)
-        test124.test_restclass_truediv(size)
+        TestBigNumbers().test_restclass_add(size)
+        TestBigNumbers().test_restclass_sub(size)
+        TestBigNumbers().test_restclass_mul(size)
+        TestBigNumbers().test_restclass_pow(size)
+        TestBigNumbers().test_restclass_truediv(size)
 
     def test_bigNumbers_fuzzing(self):
         args = sys.argv
