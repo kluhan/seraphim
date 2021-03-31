@@ -32,22 +32,22 @@ class FiniteFieldElementFuzzing:
 
         poly1 = Polynomial(coefficients1)
         poly2 = Polynomial(coefficients2)
-
-        test124 = TestPolynomArithmetic()
-        test124.test_polynom_arithmetic_add(poly1, poly2)
-        test124.test_polynom_arithmetic_degree(poly1)
-        test124.test_polynom_arithmetic_derivate(poly1)
-        test124.test_polynom_arithmetic_differentiate(poly1)
-        test124.test_polynom_arithmetic_eq_false(poly1)
-        test124.test_polynom_arithmetic_eq_true(poly1)
-        test124.test_polynom_arithmetic_mod(poly1, poly2)
-        test124.test_polynom_arithmetic_mul(poly1, poly2)
-        # test124.test_polynom_arithmetic_ne_false(poly1)
-        test124.test_polynom_arithmetic_ne_true(poly1)
-        test124.test_polynom_arithmetic_neg(poly1)
-        test124.test_polynom_arithmetic_pow(poly1, fdp.ConsumeIntInRange(1, (2 ** 10)))
-        test124.test_polynom_arithmetic_sub(poly1, poly2)
-        test124.test_polynom_arithmetic_truediv(poly1, poly2)
+        TestPolynomArithmetic().test_polynom_arithmetic_add(poly1, poly2)
+        TestPolynomArithmetic().test_polynom_arithmetic_degree(poly1)
+        TestPolynomArithmetic().test_polynom_arithmetic_derivate(poly1)
+        TestPolynomArithmetic().test_polynom_arithmetic_differentiate(poly1)
+        TestPolynomArithmetic().test_polynom_arithmetic_eq_false(poly1)
+        TestPolynomArithmetic().test_polynom_arithmetic_eq_true(poly1)
+        TestPolynomArithmetic().test_polynom_arithmetic_mod(poly1, poly2)
+        TestPolynomArithmetic().test_polynom_arithmetic_mul(poly1, poly2)
+        TestPolynomArithmetic().test_polynom_arithmetic_ne_false(poly1)
+        TestPolynomArithmetic().test_polynom_arithmetic_ne_true(poly1)
+        TestPolynomArithmetic().test_polynom_arithmetic_neg(poly1)
+        TestPolynomArithmetic().test_polynom_arithmetic_pow(
+            poly1, fdp.ConsumeIntInRange(1, (2 ** 10))
+        )
+        TestPolynomArithmetic().test_polynom_arithmetic_sub(poly1, poly2)
+        TestPolynomArithmetic().test_polynom_arithmetic_truediv(poly1, poly2)
 
     def __setup_input_finite_field_fuzzing(self, data):
         """The entry point for our fuzzer.
@@ -78,10 +78,9 @@ class FiniteFieldElementFuzzing:
         poly2 = Polynomial(coefficients2)
         ffe1 = FiniteFieldElement(ff, poly1)
         ffe2 = FiniteFieldElement(ff, poly2)
-        test124 = TestFiniteFieldElement()
-        test124.test_finite_field_element_add(ffe1, ffe2)
-        test124.test_finite_field_element_sub(ffe1, ffe2)
-        test124.test_finite_field_element_mul(ffe1, ffe2)
+        TestFiniteFieldElement().test_finite_field_element_add(ffe1, ffe2)
+        TestFiniteFieldElement().test_finite_field_element_sub(ffe1, ffe2)
+        TestFiniteFieldElement().test_finite_field_element_mul(ffe1, ffe2)
 
     def test_finite_field_fuzzing(self):
         args = sys.argv
