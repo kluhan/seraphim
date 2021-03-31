@@ -1,5 +1,5 @@
-import pytest
 import secrets
+import pytest
 from seraphim.elliptic_curves.elliptic_curve import EllipticCurve
 
 
