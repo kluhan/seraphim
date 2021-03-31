@@ -14,7 +14,7 @@ from seraphim.elliptic_curves.elliptic_curve_point import (
 
 
 class KeyAgreement:
-    def __init__(self, domain, style="projective", v=True):
+    def __init__(self, domain="curve25519", style="projective", v=True):
         self.secret = None
         self.local_key = None
         self.shared_key = None
